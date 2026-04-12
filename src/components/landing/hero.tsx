@@ -9,112 +9,87 @@ import { EmailForm } from "./email-form"
 
 export function Hero() {
   const handleSplineLoad = useCallback((splineApp: Application) => {
-    console.log('[Spline] onLoad fired — applying customizations')
+    console.log('[Spline] onLoad fired')
 
     // Make Spline background transparent so stars show through
     splineApp.setBackgroundColor('rgba(0,0,0,0)')
 
-    // Helper to find material layers
-    type LayerLike = {
-      type: string
-      color?: { r: number; g: number; b: number }
-      alpha?: number
-      updateTexture?: (src: string) => void
+    // Access the internal Three.js scene to modify shader uniforms directly.
+    // The Spline layer API (.color.r = ...) only updates the JS data model
+    // but does NOT propagate to WebGL uniforms. We must modify nodeU0.value
+    // on each mesh's material.uniforms to actually change rendered colors.
+    type ThreeScene = {
+      traverse: (cb: (child: ThreeMesh) => void) => void
     }
-    function getLayer(obj: unknown, layerType: string): LayerLike | undefined {
-      const o = obj as { material?: { layers?: LayerLike[] } }
-      return o?.material?.layers?.find((l) => l.type === layerType)
+    type ThreeMesh = {
+      isMesh?: boolean
+      name: string
+      material?: {
+        uniforms?: Record<string, { value: { r: number; g: number; b: number } | number }>
+      }
+      scale?: { x: number; y: number; z: number }
     }
 
-    // Store globally for debugging
-    ;(window as unknown as { __splineApp: Application }).__splineApp = splineApp
+    const scene = (splineApp as unknown as { _scene: ThreeScene })._scene
+    if (!scene) {
+      console.warn('[Spline] No _scene found — cannot customize robot')
+      return
+    }
 
-    function applyCustomizations() {
-      const allObjects = splineApp.getAllObjects()
-      console.log('[Spline] Applying customizations to', allObjects.length, 'objects')
+    function applyViaUniforms() {
+      let bodyCount = 0
+      let darkCount = 0
+      let headDone = false
 
-      // Log ALL mesh color values so we can see what we're dealing with
-      const colorReport: string[] = []
-      allObjects.forEach((obj) => {
-        const o = obj as { type?: string; name?: string }
-        if (o.type !== 'Mesh') return
-        const col = getLayer(obj, 'color')
-        if (col?.color) {
-          const c = col.color
-          colorReport.push(`${o.name}: r=${c.r.toFixed(3)} g=${c.g.toFixed(3)} b=${c.b.toFixed(3)}`)
+      scene.traverse((child) => {
+        if (!child.isMesh || !child.material?.uniforms) return
+        const u = child.material.uniforms
+        const nodeU0 = u.nodeU0
+        if (!nodeU0?.value || typeof nodeU0.value !== 'object' || !('r' in nodeU0.value)) return
+
+        const c = nodeU0.value
+
+        // Head — deep blue/purple tint
+        if (child.name === 'Head 2') {
+          c.r = 0.06
+          c.g = 0.06
+          c.b = 0.18
+          // Scale head slightly larger
+          if (child.scale) {
+            child.scale.x = 1.08
+            child.scale.y = 1.08
+            child.scale.z = 1.08
+          }
+          headDone = true
+          return
+        }
+
+        // Body panels (original ~0.308 grey) — blue tint
+        if (c.r > 0.25 && c.r < 0.35 && Math.abs(c.r - c.g) < 0.01) {
+          c.r = 0.12
+          c.g = 0.12
+          c.b = 0.28
+          bodyCount++
+          return
+        }
+
+        // Dark/black parts (original ~0.010) — metallic grey
+        if (c.r < 0.05 && c.g < 0.05 && c.b < 0.05) {
+          c.r = 0.22
+          c.g = 0.24
+          c.b = 0.28
+          darkCount++
+          return
         }
       })
-      console.log('[Spline] All mesh colors:\n' + colorReport.join('\n'))
 
-      // 1. Customize body — blue base
-      const body = splineApp.findObjectByName('Body')
-      if (body) {
-        const bodyColor = getLayer(body, 'color')
-        if (bodyColor?.color) {
-          bodyColor.color.r = 0.18
-          bodyColor.color.g = 0.18
-          bodyColor.color.b = 0.35
-        }
-        const bodyRainbow = getLayer(body, 'rainbow')
-        if (bodyRainbow) bodyRainbow.alpha = 0.45
-        console.log('[Spline] Body customized, color layer:', JSON.stringify(bodyColor?.color))
-      }
-
-      // 2. Head — blue/purple tint, brighter eyes, slightly larger
-      const head = splineApp.findObjectByName('Head 2')
-      if (head) {
-        const headColor = getLayer(head, 'color')
-        if (headColor?.color) {
-          headColor.color.r = 0.08
-          headColor.color.g = 0.08
-          headColor.color.b = 0.20
-        }
-        const headRainbow = getLayer(head, 'rainbow')
-        if (headRainbow) headRainbow.alpha = 0.55
-        const headLight = getLayer(head, 'light')
-        if (headLight) headLight.alpha = 1.5
-        const headMatcap = getLayer(head, 'matcap')
-        if (headMatcap) headMatcap.alpha = 0.8
-        const h = head as unknown as { scale: { x: number; y: number; z: number } }
-        h.scale = { x: 1.08, y: 1.08, z: 1.08 }
-        console.log('[Spline] Head customized, color layer:', JSON.stringify(headColor?.color))
-      }
-
-      // 2b. Brighter Point Light for more eye glow
-      const pointLight = splineApp.findObjectByName('Point Light')
-      if (pointLight) {
-        const pl = pointLight as unknown as { intensity: number }
-        pl.intensity = 8
-        console.log('[Spline] Point Light set to 8')
-      }
-
-      // 3. Turn all dark robot parts to metallic grey (expanded threshold)
-      let recolored = 0
-      allObjects.forEach((obj) => {
-        if ((obj as { type?: string }).type !== 'Mesh') return
-        const col = getLayer(obj, 'color')
-        if (!col?.color) return
-        const c = col.color
-        // Expanded threshold to catch dark parts
-        if (c.r < 0.15 && c.g < 0.15 && c.b < 0.15) {
-          c.r = 0.35
-          c.g = 0.37
-          c.b = 0.40
-          const matcap = getLayer(obj, 'matcap')
-          if (matcap) matcap.alpha = 0.7
-          recolored++
-        }
-      })
-      console.log('[Spline] Recolored', recolored, 'dark parts to metallic grey')
+      console.log(`[Spline] Uniforms: head=${headDone}, body=${bodyCount}, dark=${darkCount}`)
     }
 
-    // Apply immediately
-    applyCustomizations()
-
-    // Re-apply after delays to fight animation system overwrites
-    setTimeout(applyCustomizations, 500)
-    setTimeout(applyCustomizations, 1500)
-    setTimeout(applyCustomizations, 3000)
+    // Apply with delay to ensure scene is fully initialized
+    setTimeout(applyViaUniforms, 100)
+    setTimeout(applyViaUniforms, 1000)
+    setTimeout(applyViaUniforms, 2500)
   }, [])
 
   return (
