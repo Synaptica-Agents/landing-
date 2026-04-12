@@ -22,40 +22,43 @@ export function Hero() {
       return o?.material?.layers?.find((l) => l.type === layerType)
     }
 
-    // 1. Tint body with subtle dark blue
+    // 1. Customize body — brighter blue base + prominent logo
     const body = splineApp.findObjectByName('Body')
     if (body) {
       const bodyColor = getLayer(body, 'color')
-      if (bodyColor) bodyColor.color = { r: 0.12, g: 0.12, b: 0.22 }
+      if (bodyColor) bodyColor.color = { r: 0.18, g: 0.18, b: 0.35 }
       const bodyRainbow = getLayer(body, 'rainbow')
-      if (bodyRainbow) bodyRainbow.alpha = 0.3
-      // Apply logo texture on body chest
+      if (bodyRainbow) bodyRainbow.alpha = 0.45
+      // Apply logo texture on body chest — high visibility
       const bodyTex = getLayer(body, 'texture')
       if (bodyTex && bodyTex.updateTexture) {
-        bodyTex.alpha = 0.3
+        bodyTex.alpha = 0.8
         bodyTex.updateTexture('/Logo Synaptica.png')
       }
     }
 
-    // 2. Tint head with dark blue/purple
+    // 2. Head — blue/purple tint with strong rainbow
     const head = splineApp.findObjectByName('Head 2')
     if (head) {
       const headColor = getLayer(head, 'color')
-      if (headColor) headColor.color = { r: 0.04, g: 0.04, b: 0.10 }
+      if (headColor) headColor.color = { r: 0.08, g: 0.08, b: 0.20 }
       const headRainbow = getLayer(head, 'rainbow')
-      if (headRainbow) headRainbow.alpha = 0.55
+      if (headRainbow) headRainbow.alpha = 0.65
     }
 
-    // 3. Tint all limb/joint meshes with matching dark blue
+    // 3. Tint all limb/joint meshes with matching blue
     const limbParts = ['Cube', 'Cylinder 3', 'Cylinder 4', 'Cylinder',
       'Rectangle 3', 'Rectangle 2', 'Ellipse 3', 'Ellipse 2',
-      'Rectangle 9', 'Rectangle 10', 'Rectangle 7', 'Rectangle 8']
+      'Rectangle 9', 'Rectangle 10', 'Rectangle 7', 'Rectangle 8',
+      'Hand', 'Cube 2', 'Cube 3', 'Ellipse 4', 'Ellipse 5', 'Ellipse 6',
+      'Rectangle 4', 'Cube 4', 'Cube 5', 'Rectangle 11', 'Rectangle 12',
+      'Rectangle 5']
     allObjects.forEach((obj) => {
       if (limbParts.includes(obj.name) && (obj as { type?: string }).type === 'Mesh') {
         const col = getLayer(obj, 'color')
-        if (col) col.color = { r: 0.10, g: 0.10, b: 0.18 }
+        if (col) col.color = { r: 0.14, g: 0.14, b: 0.28 }
         const rb = getLayer(obj, 'rainbow')
-        if (rb) rb.alpha = 0.25
+        if (rb) rb.alpha = 0.35
       }
     })
   }, [])
