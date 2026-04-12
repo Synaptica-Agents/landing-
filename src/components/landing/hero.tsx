@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback } from "react"
+import Image from "next/image"
 import type { Application } from "@splinetool/runtime"
 import { SplineScene } from "@/components/ui/splite"
 import { Card } from "@/components/ui/card"
@@ -29,12 +30,6 @@ export function Hero() {
       if (bodyColor) bodyColor.color = { r: 0.18, g: 0.18, b: 0.35 }
       const bodyRainbow = getLayer(body, 'rainbow')
       if (bodyRainbow) bodyRainbow.alpha = 0.45
-      // Apply logo texture on body chest — high visibility
-      const bodyTex = getLayer(body, 'texture')
-      if (bodyTex && bodyTex.updateTexture) {
-        bodyTex.alpha = 0.8
-        bodyTex.updateTexture('/Logo Synaptica.png')
-      }
     }
 
     // 2. Head — blue/purple tint with strong rainbow
@@ -98,13 +93,25 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right content — Spline 3D */}
+          {/* Right content — Spline 3D with logo overlay */}
           <div className="flex-[1.3] relative min-h-[400px] md:min-h-0">
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full"
               onLoad={handleSplineLoad}
             />
+            {/* Logo overlay on robot chest */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="relative mt-[15%]">
+                <Image
+                  src="/favicon.png"
+                  alt=""
+                  width={80}
+                  height={80}
+                  className="opacity-60 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </Card>
