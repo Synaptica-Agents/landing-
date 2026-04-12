@@ -1,3 +1,6 @@
+'use client'
+
+import { StarsBackground } from '@/components/ui/stars'
 import { Navbar } from '@/components/landing/navbar'
 import { Hero } from '@/components/landing/hero'
 import { Statement } from '@/components/landing/statement'
@@ -9,15 +12,17 @@ import { Footer } from '@/components/landing/footer'
 
 export default function LandingPage() {
   return (
-    <main>
-      <Navbar />
-      <Hero />
-      <Statement />
-      <Features />
-      <Integrations />
-      <CTA />
-      <FAQ />
-      <Footer />
-    </main>
+    <StarsBackground className="min-h-screen bg-[radial-gradient(ellipse_at_bottom,_#0d1117_0%,_#080b14_100%)]">
+      <main className="relative z-10">
+        <Navbar />
+        <Hero />
+        <Statement />
+        <Features />
+        <Integrations />
+        <CTA />
+        <FAQ />
+        <Footer />
+      </main>
+    </StarsBackground>
   )
 }
