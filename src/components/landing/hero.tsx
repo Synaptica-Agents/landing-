@@ -66,20 +66,20 @@ export function Hero() {
         }
 
         if (mat.name === 'Body') {
-          // Chest, torso → dark with white/neutral tint, matte
+          // Chest, torso → dark neutral with visible texture
           setColor(u, 'nodeU0', 0.08, 0.08, 0.08)
-          setColor(u, 'nodeU16', 0.09, 0.09, 0.09) // secondary color
-          setNum(u, 'nodeU13', 0.15)   // matcap
-          setNum(u, 'nodeU28', 0.25)   // rainbow/iridescence
+          setColor(u, 'nodeU16', 0.12, 0.12, 0.12) // secondary/texture color
+          setNum(u, 'nodeU13', 0.35)   // matcap (more surface detail)
+          setNum(u, 'nodeU28', 0.50)   // rainbow/iridescence (subtle shimmer)
         }
 
         if (mat.name === 'Head') {
-          // Head → dark with white/neutral tone
+          // Head → dark neutral with texture
           setColor(u, 'nodeU0', 0.06, 0.06, 0.06)
-          setColor(u, 'nodeU11', 0.12, 0.12, 0.12) // reflection color
+          setColor(u, 'nodeU11', 0.14, 0.14, 0.14) // reflection color
           setNum(u, 'nodeU14', 1.8)    // eye light intensity
-          setNum(u, 'nodeU18', 0.40)   // matcap (matte)
-          setNum(u, 'nodeU28', 0.25)   // iridescence
+          setNum(u, 'nodeU18', 0.35)   // matcap (more surface detail)
+          setNum(u, 'nodeU28', 0.45)   // iridescence (subtle shimmer)
         }
       })
 
