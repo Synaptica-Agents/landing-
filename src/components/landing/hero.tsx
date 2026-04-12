@@ -65,13 +65,13 @@ export function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center px-6 pt-20">
-      <Card className="w-full max-w-6xl min-h-[500px] bg-black/30 border-white/[0.05] backdrop-blur-sm relative overflow-hidden shadow-none">
+      <Card className="w-full max-w-7xl min-h-[600px] bg-black/30 border-white/[0.05] backdrop-blur-sm relative overflow-visible shadow-none">
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"
           fill="white"
         />
 
-        <div className="flex flex-col md:flex-row h-full min-h-[500px]">
+        <div className="flex flex-col md:flex-row h-full min-h-[600px]">
           {/* Left content */}
           <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
@@ -99,7 +99,7 @@ export function Hero() {
           </div>
 
           {/* Right content — Spline 3D */}
-          <div className="flex-1 relative min-h-[300px] md:min-h-0">
+          <div className="flex-[1.3] relative min-h-[400px] md:min-h-0">
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full"
