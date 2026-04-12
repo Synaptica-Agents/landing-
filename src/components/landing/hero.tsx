@@ -80,7 +80,7 @@ export function Hero() {
           // Head → dark neutral with texture
           setColor(u, 'nodeU0', 0.06, 0.06, 0.06)
           setColor(u, 'nodeU11', 0.14, 0.14, 0.14) // reflection color
-          setNum(u, 'nodeU14', 1.8)    // eye light intensity
+          setNum(u, 'nodeU14', 5.0)    // eye light intensity (brighter eyes)
           setNum(u, 'nodeU18', 0.35)   // matcap (more surface detail)
           setNum(u, 'nodeU28', 0.45)   // iridescence (subtle shimmer)
         }
