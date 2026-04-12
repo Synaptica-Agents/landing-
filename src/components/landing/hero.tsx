@@ -59,27 +59,27 @@ export function Hero() {
         const u = mat.uniforms!
 
         if (mat.name === 'Parts') {
-          // Joints, hands, feet → darker matte grey, less glow
-          setColor(u, 'nodeU0', 0.18, 0.19, 0.22)
-          setNum(u, 'nodeU2', 3.0)     // matcap multiplier (higher = more matte)
-          setNum(u, 'nodeU13', 0.45)   // matcap alpha (higher = more matte/less shine)
+          // Joints, hands, feet → medium matte grey (brighter than before)
+          setColor(u, 'nodeU0', 0.28, 0.28, 0.30)
+          setNum(u, 'nodeU2', 3.0)     // matcap multiplier (matte)
+          setNum(u, 'nodeU13', 0.40)   // matcap alpha
         }
 
         if (mat.name === 'Body') {
-          // Chest, torso → subtle dark blue, matte
-          setColor(u, 'nodeU0', 0.04, 0.05, 0.14)
-          setColor(u, 'nodeU16', 0.05, 0.06, 0.14) // secondary color
+          // Chest, torso → dark purple, matte
+          setColor(u, 'nodeU0', 0.06, 0.03, 0.14)
+          setColor(u, 'nodeU16', 0.07, 0.04, 0.14) // secondary color
           setNum(u, 'nodeU13', 0.15)   // matcap
-          setNum(u, 'nodeU28', 0.30)   // rainbow/iridescence (reduced)
+          setNum(u, 'nodeU28', 0.30)   // rainbow/iridescence
         }
 
         if (mat.name === 'Head') {
-          // Head → subtle dark blue, less glow
-          setColor(u, 'nodeU0', 0.03, 0.03, 0.12)
-          setColor(u, 'nodeU11', 0.08, 0.09, 0.18) // reflection color (dimmer)
-          setNum(u, 'nodeU14', 1.8)    // eye light intensity (reduced)
-          setNum(u, 'nodeU18', 0.40)   // matcap (higher = more matte)
-          setNum(u, 'nodeU28', 0.35)   // iridescence (reduced)
+          // Head → dark purple, less glow
+          setColor(u, 'nodeU0', 0.05, 0.02, 0.12)
+          setColor(u, 'nodeU11', 0.10, 0.06, 0.18) // reflection color
+          setNum(u, 'nodeU14', 1.8)    // eye light intensity
+          setNum(u, 'nodeU18', 0.40)   // matcap (matte)
+          setNum(u, 'nodeU28', 0.35)   // iridescence
         }
       })
 
