@@ -56,7 +56,7 @@ export function Hero() {
         if (seen.has(mat.uuid)) return
         seen.add(mat.uuid)
 
-        const u = mat.uniforms
+        const u = mat.uniforms!
 
         if (mat.name === 'Parts') {
           // Joints, hands, feet → metallic silver-blue
