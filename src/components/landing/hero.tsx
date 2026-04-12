@@ -66,20 +66,20 @@ export function Hero() {
         }
 
         if (mat.name === 'Body') {
-          // Chest, torso → dark purple, matte
-          setColor(u, 'nodeU0', 0.06, 0.03, 0.14)
-          setColor(u, 'nodeU16', 0.07, 0.04, 0.14) // secondary color
+          // Chest, torso → dark with white/neutral tint, matte
+          setColor(u, 'nodeU0', 0.08, 0.08, 0.08)
+          setColor(u, 'nodeU16', 0.09, 0.09, 0.09) // secondary color
           setNum(u, 'nodeU13', 0.15)   // matcap
-          setNum(u, 'nodeU28', 0.30)   // rainbow/iridescence
+          setNum(u, 'nodeU28', 0.25)   // rainbow/iridescence
         }
 
         if (mat.name === 'Head') {
-          // Head → dark purple, less glow
-          setColor(u, 'nodeU0', 0.05, 0.02, 0.12)
-          setColor(u, 'nodeU11', 0.10, 0.06, 0.18) // reflection color
+          // Head → dark with white/neutral tone
+          setColor(u, 'nodeU0', 0.06, 0.06, 0.06)
+          setColor(u, 'nodeU11', 0.12, 0.12, 0.12) // reflection color
           setNum(u, 'nodeU14', 1.8)    // eye light intensity
           setNum(u, 'nodeU18', 0.40)   // matcap (matte)
-          setNum(u, 'nodeU28', 0.35)   // iridescence
+          setNum(u, 'nodeU28', 0.25)   // iridescence
         }
       })
 
