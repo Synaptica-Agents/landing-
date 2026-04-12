@@ -115,8 +115,7 @@ export function Hero() {
           {/* Left content */}
           <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
-              The future of business <br />
-              automation is <em>here.</em>
+              Hire your <em>dream</em> employee
             </h1>
             <p className="mt-6 text-neutral-300 max-w-lg text-base md:text-lg leading-relaxed font-sans">
               Your new orchestrated multi-agent system: Specialized in your industry,
@@ -139,7 +138,7 @@ export function Hero() {
           </div>
 
           {/* Right content — Spline 3D */}
-          <div className="flex-[1.3] relative min-h-[400px] md:min-h-0">
+          <div className="flex-[1.3] relative min-h-[500px] md:min-h-0">
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full"
