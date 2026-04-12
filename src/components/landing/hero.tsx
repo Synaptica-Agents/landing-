@@ -26,9 +26,25 @@ export function Hero() {
       return o?.material?.layers?.find((l) => l.type === layerType)
     }
 
+    // Store globally for debugging
+    ;(window as unknown as { __splineApp: Application }).__splineApp = splineApp
+
     function applyCustomizations() {
       const allObjects = splineApp.getAllObjects()
       console.log('[Spline] Applying customizations to', allObjects.length, 'objects')
+
+      // Log ALL mesh color values so we can see what we're dealing with
+      const colorReport: string[] = []
+      allObjects.forEach((obj) => {
+        const o = obj as { type?: string; name?: string }
+        if (o.type !== 'Mesh') return
+        const col = getLayer(obj, 'color')
+        if (col?.color) {
+          const c = col.color
+          colorReport.push(`${o.name}: r=${c.r.toFixed(3)} g=${c.g.toFixed(3)} b=${c.b.toFixed(3)}`)
+        }
+      })
+      console.log('[Spline] All mesh colors:\n' + colorReport.join('\n'))
 
       // 1. Customize body — blue base
       const body = splineApp.findObjectByName('Body')
@@ -41,7 +57,7 @@ export function Hero() {
         }
         const bodyRainbow = getLayer(body, 'rainbow')
         if (bodyRainbow) bodyRainbow.alpha = 0.45
-        console.log('[Spline] Body customized')
+        console.log('[Spline] Body customized, color layer:', JSON.stringify(bodyColor?.color))
       }
 
       // 2. Head — blue/purple tint, brighter eyes, slightly larger
@@ -61,7 +77,7 @@ export function Hero() {
         if (headMatcap) headMatcap.alpha = 0.8
         const h = head as unknown as { scale: { x: number; y: number; z: number } }
         h.scale = { x: 1.08, y: 1.08, z: 1.08 }
-        console.log('[Spline] Head customized')
+        console.log('[Spline] Head customized, color layer:', JSON.stringify(headColor?.color))
       }
 
       // 2b. Brighter Point Light for more eye glow
@@ -72,14 +88,15 @@ export function Hero() {
         console.log('[Spline] Point Light set to 8')
       }
 
-      // 3. Turn all black robot parts to metallic grey
+      // 3. Turn all dark robot parts to metallic grey (expanded threshold)
       let recolored = 0
       allObjects.forEach((obj) => {
         if ((obj as { type?: string }).type !== 'Mesh') return
         const col = getLayer(obj, 'color')
         if (!col?.color) return
         const c = col.color
-        if (c.r < 0.05 && c.g < 0.05 && c.b < 0.05) {
+        // Expanded threshold to catch dark parts
+        if (c.r < 0.15 && c.g < 0.15 && c.b < 0.15) {
           c.r = 0.35
           c.g = 0.37
           c.b = 0.40
