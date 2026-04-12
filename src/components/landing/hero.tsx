@@ -35,6 +35,9 @@ export function Hero() {
     const scene = (splineApp as unknown as { _scene: ThreeScene })._scene
     if (!scene) return
 
+    // Store globally for debugging
+    ;(window as unknown as { __splineApp: Application }).__splineApp = splineApp
+
     function setColor(u: Record<string, { value: UniformValue }>, key: string, r: number, g: number, b: number) {
       const v = u[key]?.value
       if (v && typeof v === 'object' && 'r' in v) {
