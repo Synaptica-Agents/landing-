@@ -8,7 +8,7 @@ import { EmailForm } from "./email-form"
 export function Hero() {
   return (
     <section className="min-h-screen flex items-center justify-center px-6 pt-20">
-      <Card className="w-full max-w-6xl min-h-[500px] bg-black/[0.96] border-white/[0.08] relative overflow-hidden">
+      <Card className="w-full max-w-6xl min-h-[500px] bg-black/30 border-white/[0.05] backdrop-blur-sm relative overflow-hidden shadow-none">
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"
           fill="white"
