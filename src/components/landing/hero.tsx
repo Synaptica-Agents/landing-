@@ -14,99 +14,77 @@ export function Hero() {
     // Make Spline background transparent so stars show through
     splineApp.setBackgroundColor('rgba(0,0,0,0)')
 
-    // Access the internal Three.js scene to modify shader uniforms directly.
-    // The Spline layer API (.color.r = ...) only updates the JS data model
-    // but does NOT propagate to WebGL uniforms. We must modify nodeU0.value
-    // on each mesh's material.uniforms to actually change rendered colors.
-    type ThreeScene = {
-      traverse: (cb: (child: ThreeMesh) => void) => void
+    // Access Three.js scene to modify shader uniforms directly.
+    // Spline uses NodeMaterial with only 3 unique materials shared across
+    // 80 meshes. The Spline layer API doesn't propagate to WebGL uniforms,
+    // so we must modify nodeU* uniform values on the Three.js materials.
+    type UniformValue = { r: number; g: number; b: number } | number
+    type ThreeMaterial = {
+      uuid: string
+      name: string
+      uniforms?: Record<string, { value: UniformValue }>
     }
     type ThreeMesh = {
       isMesh?: boolean
       name: string
-      material?: {
-        uniforms?: Record<string, { value: { r: number; g: number; b: number } | number }>
-      }
+      material?: ThreeMaterial
       scale?: { x: number; y: number; z: number }
     }
+    type ThreeScene = { traverse: (cb: (child: ThreeMesh) => void) => void }
 
     const scene = (splineApp as unknown as { _scene: ThreeScene })._scene
-    if (!scene) {
-      console.warn('[Spline] No _scene found — cannot customize robot')
-      return
+    if (!scene) return
+
+    function setColor(u: Record<string, { value: UniformValue }>, key: string, r: number, g: number, b: number) {
+      const v = u[key]?.value
+      if (v && typeof v === 'object' && 'r' in v) {
+        v.r = r; v.g = g; v.b = b
+      }
+    }
+    function setNum(u: Record<string, { value: UniformValue }>, key: string, val: number) {
+      if (u[key] && typeof u[key].value === 'number') {
+        u[key].value = val
+      }
     }
 
-    // Store globally for debugging
-    const w = window as unknown as { __splineApp: Application }
-    w.__splineApp = splineApp
-
-    function applyViaUniforms() {
-      let changed = 0
+    function applyCustomizations() {
+      const seen = new Set<string>()
 
       scene.traverse((child) => {
         if (!child.isMesh || !child.material?.uniforms) return
-        const uniforms = child.material.uniforms
+        const mat = child.material
+        if (seen.has(mat.uuid)) return
+        seen.add(mat.uuid)
 
-        // Iterate ALL uniforms and find ones with rgb color values
-        Object.keys(uniforms).forEach((key) => {
-          const u = uniforms[key]
-          const val = u?.value
-          if (!val || typeof val !== 'object' || !('r' in val) || !('g' in val)) return
+        const u = mat.uniforms
 
-          const c = val as { r: number; g: number; b: number }
+        if (mat.name === 'Parts') {
+          // Joints, hands, feet → metallic silver-blue
+          setColor(u, 'nodeU0', 0.40, 0.42, 0.52)
+          setNum(u, 'nodeU2', 2.0)    // reduce matcap multiplier
+          setNum(u, 'nodeU13', 0.30)   // reduce matcap alpha
+        }
 
-          // Skip if already customized (not grey-ish neutral)
-          // We detect original colors: black (~0), dark (~0.01), body grey (~0.308), matcap grey (~0.2)
-          const isNeutral = Math.abs(c.r - c.g) < 0.02 && Math.abs(c.g - c.b) < 0.02
+        if (mat.name === 'Body') {
+          // Chest, torso → dark blue with subtle blue tint
+          setColor(u, 'nodeU0', 0.08, 0.10, 0.30)
+          setColor(u, 'nodeU16', 0.10, 0.12, 0.30) // secondary color
+          setNum(u, 'nodeU13', 0.10)   // less matcap for more color
+          setNum(u, 'nodeU28', 0.60)   // rainbow/iridescence
+        }
 
-          if (!isNeutral) return // Already has color or is a light/fog color
+        if (mat.name === 'Head') {
+          // Head → deep blue with brighter reflections
+          setColor(u, 'nodeU0', 0.04, 0.04, 0.22)
+          setColor(u, 'nodeU11', 0.15, 0.18, 0.40) // reflection color
+          setNum(u, 'nodeU14', 3.0)    // eye light intensity
+          setNum(u, 'nodeU18', 0.25)   // reduce matcap
+          setNum(u, 'nodeU28', 0.70)   // more iridescence
+        }
+      })
 
-          // Head gets special treatment
-          if (child.name === 'Head 2') {
-            if (c.r < 0.05) {
-              // Base color → deep blue
-              c.r = 0.05
-              c.g = 0.05
-              c.b = 0.16
-              changed++
-            } else if (c.r >= 0.15 && c.r <= 0.25) {
-              // Matcap/reflection → blue-tinted reflection
-              c.r = 0.12
-              c.g = 0.14
-              c.b = 0.25
-              changed++
-            }
-            return
-          }
-
-          // Body panels (Cylinder 3, Cube 3, Cube 2, etc.) — original ~0.308
-          if (c.r > 0.25 && c.r < 0.35) {
-            c.r = 0.10
-            c.g = 0.10
-            c.b = 0.25
-            changed++
-            return
-          }
-
-          // Dark/black parts — original ~0.000-0.015
-          if (c.r < 0.05) {
-            c.r = 0.18
-            c.g = 0.20
-            c.b = 0.26
-            changed++
-            return
-          }
-
-          // Mid-grey parts (matcap highlights ~0.2)
-          if (c.r >= 0.15 && c.r <= 0.25) {
-            c.r = 0.15
-            c.g = 0.17
-            c.b = 0.25
-            changed++
-          }
-        })
-
-        // Scale head
+      // Scale head slightly larger
+      scene.traverse((child) => {
         if (child.name === 'Head 2' && child.scale) {
           child.scale.x = 1.08
           child.scale.y = 1.08
@@ -114,13 +92,12 @@ export function Hero() {
         }
       })
 
-      console.log(`[Spline] Changed ${changed} uniform color values`)
+      console.log('[Spline] Customizations applied to', seen.size, 'materials')
     }
 
-    // Apply with delays — scene animation may overwrite on first frames
-    setTimeout(applyViaUniforms, 200)
-    setTimeout(applyViaUniforms, 1500)
-    setTimeout(applyViaUniforms, 3000)
+    // Apply with delays to ensure scene is fully initialized
+    setTimeout(applyCustomizations, 200)
+    setTimeout(applyCustomizations, 1500)
   }, [])
 
   return (
