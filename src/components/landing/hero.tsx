@@ -9,65 +9,95 @@ import { EmailForm } from "./email-form"
 
 export function Hero() {
   const handleSplineLoad = useCallback((splineApp: Application) => {
+    console.log('[Spline] onLoad fired — applying customizations')
+
     // Make Spline background transparent so stars show through
     splineApp.setBackgroundColor('rgba(0,0,0,0)')
 
-    // --- Customize the robot ---
-    const allObjects = splineApp.getAllObjects()
-
     // Helper to find material layers
-    type LayerLike = { type: string; color?: { r: number; g: number; b: number }; alpha?: number; updateTexture?: (src: string) => void }
+    type LayerLike = {
+      type: string
+      color?: { r: number; g: number; b: number }
+      alpha?: number
+      updateTexture?: (src: string) => void
+    }
     function getLayer(obj: unknown, layerType: string): LayerLike | undefined {
       const o = obj as { material?: { layers?: LayerLike[] } }
       return o?.material?.layers?.find((l) => l.type === layerType)
     }
 
-    // 1. Customize body — brighter blue base + prominent logo
-    const body = splineApp.findObjectByName('Body')
-    if (body) {
-      const bodyColor = getLayer(body, 'color')
-      if (bodyColor) bodyColor.color = { r: 0.18, g: 0.18, b: 0.35 }
-      const bodyRainbow = getLayer(body, 'rainbow')
-      if (bodyRainbow) bodyRainbow.alpha = 0.45
-    }
+    function applyCustomizations() {
+      const allObjects = splineApp.getAllObjects()
+      console.log('[Spline] Applying customizations to', allObjects.length, 'objects')
 
-    // 2. Head — blue/purple tint, brighter eyes, slightly larger
-    const head = splineApp.findObjectByName('Head 2')
-    if (head) {
-      const headColor = getLayer(head, 'color')
-      if (headColor) headColor.color = { r: 0.08, g: 0.08, b: 0.20 }
-      const headRainbow = getLayer(head, 'rainbow')
-      if (headRainbow) headRainbow.alpha = 0.55
-      // Brighter eyes (video layer)
-      const headLight = getLayer(head, 'light')
-      if (headLight) headLight.alpha = 1.5
-      const headMatcap = getLayer(head, 'matcap')
-      if (headMatcap) headMatcap.alpha = 0.8
-      // Slightly larger head
-      const h = head as unknown as { scale: { x: number; y: number; z: number } }
-      h.scale = { x: 1.08, y: 1.08, z: 1.08 }
-    }
-
-    // 2b. Brighter Point Light for more eye glow
-    const pointLight = splineApp.findObjectByName('Point Light')
-    if (pointLight) {
-      const pl = pointLight as unknown as { intensity: number }
-      pl.intensity = 8
-    }
-
-    // 3. Turn all black robot parts (joints, hands, etc.) to metallic grey
-    allObjects.forEach((obj) => {
-      if ((obj as { type?: string }).type !== 'Mesh') return
-      const col = getLayer(obj, 'color')
-      if (!col?.color) return
-      const c = col.color
-      // Target only the dark/black parts (original color ~0.01)
-      if (c.r < 0.05 && c.g < 0.05 && c.b < 0.05) {
-        col.color = { r: 0.35, g: 0.37, b: 0.40 }
-        const matcap = getLayer(obj, 'matcap')
-        if (matcap) matcap.alpha = 0.7
+      // 1. Customize body — blue base
+      const body = splineApp.findObjectByName('Body')
+      if (body) {
+        const bodyColor = getLayer(body, 'color')
+        if (bodyColor?.color) {
+          bodyColor.color.r = 0.18
+          bodyColor.color.g = 0.18
+          bodyColor.color.b = 0.35
+        }
+        const bodyRainbow = getLayer(body, 'rainbow')
+        if (bodyRainbow) bodyRainbow.alpha = 0.45
+        console.log('[Spline] Body customized')
       }
-    })
+
+      // 2. Head — blue/purple tint, brighter eyes, slightly larger
+      const head = splineApp.findObjectByName('Head 2')
+      if (head) {
+        const headColor = getLayer(head, 'color')
+        if (headColor?.color) {
+          headColor.color.r = 0.08
+          headColor.color.g = 0.08
+          headColor.color.b = 0.20
+        }
+        const headRainbow = getLayer(head, 'rainbow')
+        if (headRainbow) headRainbow.alpha = 0.55
+        const headLight = getLayer(head, 'light')
+        if (headLight) headLight.alpha = 1.5
+        const headMatcap = getLayer(head, 'matcap')
+        if (headMatcap) headMatcap.alpha = 0.8
+        const h = head as unknown as { scale: { x: number; y: number; z: number } }
+        h.scale = { x: 1.08, y: 1.08, z: 1.08 }
+        console.log('[Spline] Head customized')
+      }
+
+      // 2b. Brighter Point Light for more eye glow
+      const pointLight = splineApp.findObjectByName('Point Light')
+      if (pointLight) {
+        const pl = pointLight as unknown as { intensity: number }
+        pl.intensity = 8
+        console.log('[Spline] Point Light set to 8')
+      }
+
+      // 3. Turn all black robot parts to metallic grey
+      let recolored = 0
+      allObjects.forEach((obj) => {
+        if ((obj as { type?: string }).type !== 'Mesh') return
+        const col = getLayer(obj, 'color')
+        if (!col?.color) return
+        const c = col.color
+        if (c.r < 0.05 && c.g < 0.05 && c.b < 0.05) {
+          c.r = 0.35
+          c.g = 0.37
+          c.b = 0.40
+          const matcap = getLayer(obj, 'matcap')
+          if (matcap) matcap.alpha = 0.7
+          recolored++
+        }
+      })
+      console.log('[Spline] Recolored', recolored, 'dark parts to metallic grey')
+    }
+
+    // Apply immediately
+    applyCustomizations()
+
+    // Re-apply after delays to fight animation system overwrites
+    setTimeout(applyCustomizations, 500)
+    setTimeout(applyCustomizations, 1500)
+    setTimeout(applyCustomizations, 3000)
   }, [])
 
   return (
