@@ -59,27 +59,27 @@ export function Hero() {
         const u = mat.uniforms!
 
         if (mat.name === 'Parts') {
-          // Joints, hands, feet → metallic silver-blue
-          setColor(u, 'nodeU0', 0.40, 0.42, 0.52)
-          setNum(u, 'nodeU2', 2.0)    // reduce matcap multiplier
-          setNum(u, 'nodeU13', 0.30)   // reduce matcap alpha
+          // Joints, hands, feet → darker matte grey, less glow
+          setColor(u, 'nodeU0', 0.18, 0.19, 0.22)
+          setNum(u, 'nodeU2', 3.0)     // matcap multiplier (higher = more matte)
+          setNum(u, 'nodeU13', 0.45)   // matcap alpha (higher = more matte/less shine)
         }
 
         if (mat.name === 'Body') {
-          // Chest, torso → dark blue with subtle blue tint
-          setColor(u, 'nodeU0', 0.08, 0.10, 0.30)
-          setColor(u, 'nodeU16', 0.10, 0.12, 0.30) // secondary color
-          setNum(u, 'nodeU13', 0.10)   // less matcap for more color
-          setNum(u, 'nodeU28', 0.60)   // rainbow/iridescence
+          // Chest, torso → subtle dark blue, matte
+          setColor(u, 'nodeU0', 0.04, 0.05, 0.14)
+          setColor(u, 'nodeU16', 0.05, 0.06, 0.14) // secondary color
+          setNum(u, 'nodeU13', 0.15)   // matcap
+          setNum(u, 'nodeU28', 0.30)   // rainbow/iridescence (reduced)
         }
 
         if (mat.name === 'Head') {
-          // Head → deep blue with brighter reflections
-          setColor(u, 'nodeU0', 0.04, 0.04, 0.22)
-          setColor(u, 'nodeU11', 0.15, 0.18, 0.40) // reflection color
-          setNum(u, 'nodeU14', 3.0)    // eye light intensity
-          setNum(u, 'nodeU18', 0.25)   // reduce matcap
-          setNum(u, 'nodeU28', 0.70)   // more iridescence
+          // Head → subtle dark blue, less glow
+          setColor(u, 'nodeU0', 0.03, 0.03, 0.12)
+          setColor(u, 'nodeU11', 0.08, 0.09, 0.18) // reflection color (dimmer)
+          setNum(u, 'nodeU14', 1.8)    // eye light intensity (reduced)
+          setNum(u, 'nodeU18', 0.40)   // matcap (higher = more matte)
+          setNum(u, 'nodeU28', 0.35)   // iridescence (reduced)
         }
       })
 
