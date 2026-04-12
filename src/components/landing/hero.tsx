@@ -36,60 +36,91 @@ export function Hero() {
       return
     }
 
+    // Store globally for debugging
+    const w = window as unknown as { __splineApp: Application }
+    w.__splineApp = splineApp
+
     function applyViaUniforms() {
-      let bodyCount = 0
-      let darkCount = 0
-      let headDone = false
+      let changed = 0
 
       scene.traverse((child) => {
         if (!child.isMesh || !child.material?.uniforms) return
-        const u = child.material.uniforms
-        const nodeU0 = u.nodeU0
-        if (!nodeU0?.value || typeof nodeU0.value !== 'object' || !('r' in nodeU0.value)) return
+        const uniforms = child.material.uniforms
 
-        const c = nodeU0.value
+        // Iterate ALL uniforms and find ones with rgb color values
+        Object.keys(uniforms).forEach((key) => {
+          const u = uniforms[key]
+          const val = u?.value
+          if (!val || typeof val !== 'object' || !('r' in val) || !('g' in val)) return
 
-        // Head — deep blue/purple tint
-        if (child.name === 'Head 2') {
-          c.r = 0.06
-          c.g = 0.06
-          c.b = 0.18
-          // Scale head slightly larger
-          if (child.scale) {
-            child.scale.x = 1.08
-            child.scale.y = 1.08
-            child.scale.z = 1.08
+          const c = val as { r: number; g: number; b: number }
+
+          // Skip if already customized (not grey-ish neutral)
+          // We detect original colors: black (~0), dark (~0.01), body grey (~0.308), matcap grey (~0.2)
+          const isNeutral = Math.abs(c.r - c.g) < 0.02 && Math.abs(c.g - c.b) < 0.02
+
+          if (!isNeutral) return // Already has color or is a light/fog color
+
+          // Head gets special treatment
+          if (child.name === 'Head 2') {
+            if (c.r < 0.05) {
+              // Base color → deep blue
+              c.r = 0.05
+              c.g = 0.05
+              c.b = 0.16
+              changed++
+            } else if (c.r >= 0.15 && c.r <= 0.25) {
+              // Matcap/reflection → blue-tinted reflection
+              c.r = 0.12
+              c.g = 0.14
+              c.b = 0.25
+              changed++
+            }
+            return
           }
-          headDone = true
-          return
-        }
 
-        // Body panels (original ~0.308 grey) — blue tint
-        if (c.r > 0.25 && c.r < 0.35 && Math.abs(c.r - c.g) < 0.01) {
-          c.r = 0.12
-          c.g = 0.12
-          c.b = 0.28
-          bodyCount++
-          return
-        }
+          // Body panels (Cylinder 3, Cube 3, Cube 2, etc.) — original ~0.308
+          if (c.r > 0.25 && c.r < 0.35) {
+            c.r = 0.10
+            c.g = 0.10
+            c.b = 0.25
+            changed++
+            return
+          }
 
-        // Dark/black parts (original ~0.010) — metallic grey
-        if (c.r < 0.05 && c.g < 0.05 && c.b < 0.05) {
-          c.r = 0.22
-          c.g = 0.24
-          c.b = 0.28
-          darkCount++
-          return
+          // Dark/black parts — original ~0.000-0.015
+          if (c.r < 0.05) {
+            c.r = 0.18
+            c.g = 0.20
+            c.b = 0.26
+            changed++
+            return
+          }
+
+          // Mid-grey parts (matcap highlights ~0.2)
+          if (c.r >= 0.15 && c.r <= 0.25) {
+            c.r = 0.15
+            c.g = 0.17
+            c.b = 0.25
+            changed++
+          }
+        })
+
+        // Scale head
+        if (child.name === 'Head 2' && child.scale) {
+          child.scale.x = 1.08
+          child.scale.y = 1.08
+          child.scale.z = 1.08
         }
       })
 
-      console.log(`[Spline] Uniforms: head=${headDone}, body=${bodyCount}, dark=${darkCount}`)
+      console.log(`[Spline] Changed ${changed} uniform color values`)
     }
 
-    // Apply with delay to ensure scene is fully initialized
-    setTimeout(applyViaUniforms, 100)
-    setTimeout(applyViaUniforms, 1000)
-    setTimeout(applyViaUniforms, 2500)
+    // Apply with delays — scene animation may overwrite on first frames
+    setTimeout(applyViaUniforms, 200)
+    setTimeout(applyViaUniforms, 1500)
+    setTimeout(applyViaUniforms, 3000)
   }, [])
 
   return (
