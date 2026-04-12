@@ -32,13 +32,28 @@ export function Hero() {
       if (bodyRainbow) bodyRainbow.alpha = 0.45
     }
 
-    // 2. Head — blue/purple tint with strong rainbow
+    // 2. Head — blue/purple tint, brighter eyes, slightly larger
     const head = splineApp.findObjectByName('Head 2')
     if (head) {
       const headColor = getLayer(head, 'color')
       if (headColor) headColor.color = { r: 0.08, g: 0.08, b: 0.20 }
       const headRainbow = getLayer(head, 'rainbow')
-      if (headRainbow) headRainbow.alpha = 0.65
+      if (headRainbow) headRainbow.alpha = 0.55
+      // Brighter eyes (video layer)
+      const headLight = getLayer(head, 'light')
+      if (headLight) headLight.alpha = 1.5
+      const headMatcap = getLayer(head, 'matcap')
+      if (headMatcap) headMatcap.alpha = 0.8
+      // Slightly larger head
+      const h = head as unknown as { scale: { x: number; y: number; z: number } }
+      h.scale = { x: 1.08, y: 1.08, z: 1.08 }
+    }
+
+    // 2b. Brighter Point Light for more eye glow
+    const pointLight = splineApp.findObjectByName('Point Light')
+    if (pointLight) {
+      const pl = pointLight as unknown as { intensity: number }
+      pl.intensity = 8
     }
 
     // 3. Tint all limb/joint meshes with matching blue
