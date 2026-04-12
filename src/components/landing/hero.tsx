@@ -55,19 +55,17 @@ export function Hero() {
       pl.intensity = 8
     }
 
-    // 3. Tint all limb/joint meshes with matching blue
-    const limbParts = ['Cube', 'Cylinder 3', 'Cylinder 4', 'Cylinder',
-      'Rectangle 3', 'Rectangle 2', 'Ellipse 3', 'Ellipse 2',
-      'Rectangle 9', 'Rectangle 10', 'Rectangle 7', 'Rectangle 8',
-      'Hand', 'Cube 2', 'Cube 3', 'Ellipse 4', 'Ellipse 5', 'Ellipse 6',
-      'Rectangle 4', 'Cube 4', 'Cube 5', 'Rectangle 11', 'Rectangle 12',
-      'Rectangle 5']
+    // 3. Turn all black robot parts (joints, hands, etc.) to metallic grey
     allObjects.forEach((obj) => {
-      if (limbParts.includes(obj.name) && (obj as { type?: string }).type === 'Mesh') {
-        const col = getLayer(obj, 'color')
-        if (col) col.color = { r: 0.14, g: 0.14, b: 0.28 }
-        const rb = getLayer(obj, 'rainbow')
-        if (rb) rb.alpha = 0.35
+      if ((obj as { type?: string }).type !== 'Mesh') return
+      const col = getLayer(obj, 'color')
+      if (!col?.color) return
+      const c = col.color
+      // Target only the dark/black parts (original color ~0.01)
+      if (c.r < 0.05 && c.g < 0.05 && c.b < 0.05) {
+        col.color = { r: 0.35, g: 0.37, b: 0.40 }
+        const matcap = getLayer(obj, 'matcap')
+        if (matcap) matcap.alpha = 0.7
       }
     })
   }, [])
