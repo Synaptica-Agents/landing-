@@ -29,7 +29,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section id="faq" className="min-h-screen flex items-center justify-center px-6 py-20">
+    <section id="faq" className="min-h-screen flex items-center justify-center px-6 py-20 snap-center">
       <div className="max-w-3xl mx-auto w-full">
         <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12 text-white/90">
           Common questions.

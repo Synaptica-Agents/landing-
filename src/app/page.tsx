@@ -11,7 +11,7 @@ import { Footer } from '@/components/landing/footer'
 
 export default function LandingPage() {
   return (
-    <StarsBackground className="min-h-screen bg-[radial-gradient(ellipse_at_bottom,_#0d1117_0%,_#080b14_100%)]">
+    <StarsBackground className="h-screen bg-[radial-gradient(ellipse_at_bottom,_#0d1117_0%,_#080b14_100%)] snap-y snap-mandatory">
       <main className="relative z-10">
         <Navbar />
         <Hero />

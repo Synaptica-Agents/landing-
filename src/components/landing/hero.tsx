@@ -102,7 +102,7 @@ export function Hero() {
   }, [])
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 pt-20">
+    <section className="min-h-screen flex items-center justify-center px-6 pt-20 snap-center">
       <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-12 md:gap-12">
         {/* Spline 3D */}
         <div className="w-full md:flex-[1.3] h-[280px] md:h-[700px] relative">
