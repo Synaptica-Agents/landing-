@@ -96,3 +96,12 @@
     scroll-behavior: smooth;
   }
 }
+
+@media (min-width: 768px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+  section {
+    scroll-snap-align: center;
+  }
+}
