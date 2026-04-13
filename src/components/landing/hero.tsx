@@ -113,9 +113,9 @@ export function Hero() {
 
         <div className="flex flex-col-reverse md:flex-row h-full md:min-h-[600px]">
           {/* Left content */}
-          <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
+          <div className="flex-[1.2] p-8 md:p-12 relative z-10 flex flex-col justify-center">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
-              Hire your <em>dream</em> employee
+              Hire your <em>dream</em><br />employee
             </h1>
             <p className="mt-6 text-neutral-300 max-w-lg text-base md:text-xl leading-relaxed font-sans">
               Built for your industry. Plugged into your tools.
