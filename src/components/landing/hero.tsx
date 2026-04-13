@@ -3,8 +3,6 @@
 import { useCallback } from "react"
 import type { Application } from "@splinetool/runtime"
 import { SplineScene } from "@/components/ui/splite"
-import { Card } from "@/components/ui/card"
-import { Spotlight } from "@/components/ui/spotlight"
 import { EmailForm } from "./email-form"
 
 export function Hero() {
@@ -106,18 +104,14 @@ export function Hero() {
   return (
     <section className="min-h-screen flex items-center justify-center px-6 pt-20">
       <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-8 md:gap-12">
-        {/* Spline 3D in Card */}
-        <Card className="w-full md:flex-[1.3] h-[350px] md:h-[600px] bg-black/30 border-white/[0.05] backdrop-blur-sm relative overflow-visible shadow-none">
-          <Spotlight
-            className="-top-40 left-0 md:left-60 md:-top-20"
-            fill="white"
-          />
+        {/* Spline 3D */}
+        <div className="w-full md:flex-[1.3] h-[350px] md:h-[700px] relative">
           <SplineScene
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="w-full h-full scale-125 md:scale-100"
+            className="w-full h-full scale-125 md:scale-110"
             onLoad={handleSplineLoad}
           />
-        </Card>
+        </div>
 
         {/* Text content outside Card */}
         <div className="flex-[1.2] flex flex-col justify-center">
