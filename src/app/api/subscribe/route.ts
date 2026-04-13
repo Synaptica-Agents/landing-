@@ -9,17 +9,28 @@ function getSupabase() {
 }
 
 export async function POST(request: Request) {
-  const { email, source } = await request.json()
+  const { name, company, email, source } = await request.json()
 
   if (!email || !email.includes('@')) {
     return NextResponse.json({ error: 'Valid email is required' }, { status: 400 })
+  }
+  if (!name || !name.trim()) {
+    return NextResponse.json({ error: 'Name is required' }, { status: 400 })
+  }
+  if (!company || !company.trim()) {
+    return NextResponse.json({ error: 'Company is required' }, { status: 400 })
   }
 
   try {
     const supabase = getSupabase()
     const { error } = await supabase
       .from('demo_requests')
-      .insert({ email: email.toLowerCase().trim(), source: source || 'unknown' })
+      .insert({
+        email: email.toLowerCase().trim(),
+        name: name.trim(),
+        company: company.trim(),
+        source: source || 'unknown',
+      })
 
     if (error) {
       if (error.code === '23505') {
