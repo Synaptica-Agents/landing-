@@ -105,50 +105,47 @@ export function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center px-6 pt-20">
-      <Card className="w-full max-w-7xl md:min-h-[600px] bg-black/30 border-white/[0.05] backdrop-blur-sm relative overflow-visible shadow-none">
-        <Spotlight
-          className="-top-40 left-0 md:left-60 md:-top-20"
-          fill="white"
-        />
+      <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        {/* Spline 3D in Card */}
+        <Card className="w-full md:flex-[1.3] h-[350px] md:h-[600px] bg-black/30 border-white/[0.05] backdrop-blur-sm relative overflow-visible shadow-none">
+          <Spotlight
+            className="-top-40 left-0 md:left-60 md:-top-20"
+            fill="white"
+          />
+          <SplineScene
+            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+            className="w-full h-full scale-125 md:scale-100"
+            onLoad={handleSplineLoad}
+          />
+        </Card>
 
-        <div className="flex flex-col-reverse md:flex-row h-full md:min-h-[600px]">
-          {/* Left content */}
-          <div className="flex-[1.2] p-8 md:p-12 relative z-10 flex flex-col justify-center">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
-              Hire your <em>dream</em><br />employee
-            </h1>
-            <p className="mt-6 text-neutral-300 max-w-lg text-base md:text-xl leading-relaxed font-sans">
-              Built for your industry. Plugged into your tools.
-              Designed to act, not just answer.
-            </p>
-            <p className="mt-3 text-base md:text-xl font-sans">
-              <strong className="text-white">A whole new level of automation!</strong>
-            </p>
+        {/* Text content outside Card */}
+        <div className="flex-[1.2] flex flex-col justify-center">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
+            Hire your <em>dream</em><br />employee
+          </h1>
+          <p className="mt-6 text-neutral-300 max-w-lg text-base md:text-xl leading-relaxed font-sans">
+            Built for your industry. Plugged into your tools.
+            Designed to act, not just answer.
+          </p>
+          <p className="mt-3 text-base md:text-xl font-sans">
+            <strong className="text-white">A whole new level of automation!</strong>
+          </p>
 
-            <div className="mt-8">
-              <EmailForm source="hero" />
-            </div>
-
-            <p className="mt-4 text-neutral-500 text-xs md:text-sm font-sans">
-              Built for European businesses &amp; their workflows
-            </p>
-            <div className="flex gap-4 mt-3">
-              <span className="text-[11px] md:text-sm text-neutral-400 font-mono tracking-wide uppercase">GDPR Compliant</span>
-              <span className="text-[11px] md:text-sm text-neutral-400 font-mono tracking-wide uppercase">EU-Hosted</span>
-              <span className="text-[11px] md:text-sm text-neutral-400 font-mono tracking-wide uppercase">Encrypted</span>
-            </div>
+          <div className="mt-8">
+            <EmailForm source="hero" />
           </div>
 
-          {/* Right content — Spline 3D */}
-          <div className="relative h-[300px] flex-none md:flex-[1.3] md:h-auto">
-            <SplineScene
-              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-              className="w-full h-full scale-125 md:scale-100"
-              onLoad={handleSplineLoad}
-            />
+          <p className="mt-4 text-neutral-500 text-xs md:text-sm font-sans">
+            Built for European businesses &amp; their workflows
+          </p>
+          <div className="flex gap-4 mt-3">
+            <span className="text-[11px] md:text-sm text-neutral-400 font-mono tracking-wide uppercase">GDPR Compliant</span>
+            <span className="text-[11px] md:text-sm text-neutral-400 font-mono tracking-wide uppercase">EU-Hosted</span>
+            <span className="text-[11px] md:text-sm text-neutral-400 font-mono tracking-wide uppercase">Encrypted</span>
           </div>
         </div>
-      </Card>
+      </div>
     </section>
   )
 }
