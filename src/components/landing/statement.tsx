@@ -1,6 +1,6 @@
 export function Statement() {
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 snap-center">
+    <section className="min-h-screen flex items-center justify-center px-6 snap-start">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight text-white/90">
           Your next great hire isn&apos;t a person.

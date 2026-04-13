@@ -93,17 +93,34 @@ export function StarsBackground({
   const springX = useSpring(offsetX, transition);
   const springY = useSpring(offsetY, transition);
 
+  const rafRef = React.useRef<number | null>(null);
+  const pendingRef = React.useRef<{ x: number; y: number } | null>(null);
+
   const handleMouseMove = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
-      const newOffsetX = -(e.clientX - centerX) * factor;
-      const newOffsetY = -(e.clientY - centerY) * factor;
-      offsetX.set(newOffsetX);
-      offsetY.set(newOffsetY);
+      pendingRef.current = {
+        x: -(e.clientX - centerX) * factor,
+        y: -(e.clientY - centerY) * factor,
+      };
+      if (rafRef.current !== null) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        const p = pendingRef.current;
+        if (!p) return;
+        offsetX.set(p.x);
+        offsetY.set(p.y);
+      });
     },
     [offsetX, offsetY, factor],
   );
+
+  React.useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <div
@@ -117,13 +134,13 @@ export function StarsBackground({
     >
       <motion.div style={{ x: springX, y: springY }}>
         <StarLayer
-          count={1000}
+          count={300}
           size={1}
           transition={{ repeat: Infinity, duration: speed, ease: "linear" }}
           starColor={starColor}
         />
         <StarLayer
-          count={400}
+          count={120}
           size={2}
           transition={{
             repeat: Infinity,
@@ -133,7 +150,7 @@ export function StarsBackground({
           starColor={starColor}
         />
         <StarLayer
-          count={200}
+          count={40}
           size={3}
           transition={{
             repeat: Infinity,

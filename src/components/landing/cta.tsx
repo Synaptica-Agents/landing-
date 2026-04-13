@@ -2,7 +2,7 @@ import { EmailForm } from './email-form'
 
 export function CTA() {
   return (
-    <section id="cta" className="min-h-screen flex items-center justify-center px-6 snap-center">
+    <section id="cta" className="min-h-screen flex items-center justify-center px-6 snap-start">
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-white/90">
           Meet your new <em>AI-Employee.</em>
