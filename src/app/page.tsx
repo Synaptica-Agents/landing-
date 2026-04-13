@@ -5,7 +5,6 @@ import { Navbar } from '@/components/landing/navbar'
 import { Hero } from '@/components/landing/hero'
 import { Statement } from '@/components/landing/statement'
 
-import { Integrations } from '@/components/landing/integrations'
 import { CTA } from '@/components/landing/cta'
 import { FAQ } from '@/components/landing/faq'
 import { Footer } from '@/components/landing/footer'
@@ -18,7 +17,6 @@ export default function LandingPage() {
         <Hero />
         <Statement />
 
-        <Integrations />
         <CTA />
         <FAQ />
         <Footer />
