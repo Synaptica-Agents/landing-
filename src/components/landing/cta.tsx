@@ -16,7 +16,7 @@ export function CTA() {
           <EmailForm source="cta" variant="inline" />
         </div>
         <p className="mt-4 text-xs md:text-sm text-neutral-500 font-sans">
-          Powered by OpenAI, Claude, Gemini &amp; more. Orchestrated for your business.
+          Powered by your favorite AI Models. Orchestrated for your business.
         </p>
       </div>
     </section>
