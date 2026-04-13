@@ -105,22 +105,24 @@ export function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center px-6 pt-20">
-      <Card className="w-full max-w-7xl min-h-[600px] bg-black/30 border-white/[0.05] backdrop-blur-sm relative overflow-visible shadow-none">
+      <Card className="w-full max-w-7xl md:min-h-[600px] bg-black/30 border-white/[0.05] backdrop-blur-sm relative overflow-visible shadow-none">
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"
           fill="white"
         />
 
-        <div className="flex flex-col-reverse md:flex-row h-full min-h-[600px]">
+        <div className="flex flex-col-reverse md:flex-row h-full md:min-h-[600px]">
           {/* Left content */}
           <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
               Hire your <em>dream</em> employee
             </h1>
             <p className="mt-6 text-neutral-300 max-w-lg text-base md:text-lg leading-relaxed font-sans">
-              Your new orchestrated multi-agent system: Specialized in your industry,
-              tailored to your business.{' '}
-              <strong className="text-white">Completely ready to use!</strong>
+              An expert on your industry and company. Integrated with all your tools
+              and software to take action in them.
+            </p>
+            <p className="mt-3 text-base md:text-lg font-sans">
+              <strong className="text-white">A whole new level of automation.</strong>
             </p>
 
             <div className="mt-8">
@@ -138,7 +140,7 @@ export function Hero() {
           </div>
 
           {/* Right content — Spline 3D */}
-          <div className="flex-[1.3] relative min-h-[400px] md:min-h-0">
+          <div className="flex-[1.3] relative min-h-[250px] md:min-h-0">
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full scale-125 md:scale-100"
