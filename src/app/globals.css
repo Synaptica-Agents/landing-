@@ -97,11 +97,10 @@
   }
 }
 
-@media (min-width: 768px) {
-  html {
-    scroll-snap-type: y proximity;
-  }
-  section {
-    scroll-snap-align: center;
-  }
+html {
+  scroll-snap-type: y mandatory;
+}
+
+section {
+  scroll-snap-align: center;
 }
