@@ -57,7 +57,7 @@ export function EmailForm({ source, variant = 'default' }: EmailFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={variant === 'inline' ? 'flex gap-3 w-full max-w-md' : 'flex flex-col sm:flex-row gap-3 w-full max-w-md'}>
+    <form onSubmit={handleSubmit} className={variant === 'inline' ? 'flex flex-col sm:flex-row gap-3 w-full max-w-md mx-auto' : 'flex flex-col sm:flex-row gap-3 w-full max-w-md'}>
       <input
         type="email"
         value={email}

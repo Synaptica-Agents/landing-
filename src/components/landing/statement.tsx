@@ -9,9 +9,9 @@ export function Statement() {
           Define the skills, the knowledge, the tools.
         </p>
         <p className="mt-4 text-lg md:text-2xl text-neutral-400 max-w-4xl mx-auto font-sans leading-relaxed">
-          We engineer a <strong className="text-white">multi-agent AI system</strong> that fits your team
-          like an employee who <strong className="text-white">never sleeps</strong>, <strong className="text-white">never forgets</strong>,
-          and plugs into <strong className="text-white">every tool</strong> you already use.
+          We engineer a <em className="text-neutral-200">multi-agent AI system</em> that fits your team
+          like an employee who <em className="text-neutral-200">never sleeps</em>, <em className="text-neutral-200">never forgets</em>,
+          and plugs into <em className="text-neutral-200">every tool</em> you already use.
         </p>
       </div>
     </section>
