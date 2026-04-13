@@ -118,11 +118,11 @@ export function Hero() {
               Hire your <em>dream</em> employee
             </h1>
             <p className="mt-6 text-neutral-300 max-w-lg text-base md:text-lg leading-relaxed font-sans">
-              An expert on your industry and company. Integrated with all your tools
-              and software to take action in them.
+              Built for your industry. Plugged into your tools.
+              Designed to act, not just answer.
             </p>
             <p className="mt-3 text-base md:text-lg font-sans">
-              <strong className="text-white">A whole new level of automation.</strong>
+              <strong className="text-white">A whole new level of automation!</strong>
             </p>
 
             <div className="mt-8">
@@ -140,7 +140,7 @@ export function Hero() {
           </div>
 
           {/* Right content — Spline 3D */}
-          <div className="flex-[1.3] relative min-h-[250px] md:min-h-0">
+          <div className="relative h-[300px] flex-none md:flex-[1.3] md:h-auto">
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full scale-125 md:scale-100"
