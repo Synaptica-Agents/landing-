@@ -103,12 +103,12 @@ export function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center px-6 pt-20 snap-start">
-      <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-12 md:gap-12">
+      <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-8 md:gap-8">
         {/* Spline 3D */}
-        <div className="w-full md:flex-[1.3] h-[280px] md:h-[700px] relative">
+        <div className="w-full md:flex-1 h-[320px] md:h-[620px] relative overflow-hidden">
           <SplineScene
             scene="https://prod.spline.design/XcyEqCFug5N9OvlL/scene.splinecode"
-            className="w-full h-full scale-110 md:scale-110"
+            className="w-full h-full scale-125 md:scale-[1.4]"
             onLoad={handleSplineLoad}
           />
         </div>
