@@ -108,7 +108,7 @@ export function Hero() {
         <div className="w-full max-w-[280px] aspect-square mx-auto md:max-w-none md:mx-0 md:flex-[1.2] md:aspect-auto md:h-[520px] relative overflow-hidden">
           <SplineScene
             scene="https://prod.spline.design/ofSVkzNdOvfRdlLP/scene.splinecode"
-            className="w-full h-full scale-75 -translate-x-4 md:scale-110 md:translate-x-0"
+            className="w-full h-full scale-75 -translate-x-12 md:scale-110 md:translate-x-0"
             onLoad={handleSplineLoad}
           />
         </div>
