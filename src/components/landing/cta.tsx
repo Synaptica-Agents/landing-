@@ -8,9 +8,9 @@ export function CTA() {
           Meet your new <em>AI-Employee.</em>
         </h2>
         <p className="mt-6 text-lg md:text-2xl text-neutral-400 font-sans">
-          Your competitors will hire advanced AI agents.
+          The next wave of productivity isn&apos;t a tool. It&apos;s a teammate.
           <br />
-          Be the one who hires first.
+          Don&apos;t be the last to figure that out.
         </p>
         <div className="mt-10 flex justify-center">
           <EmailForm source="cta" variant="inline" />
