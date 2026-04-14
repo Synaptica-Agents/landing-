@@ -5,6 +5,7 @@ import { SmoothSnap } from '@/components/ui/smooth-snap'
 import { Navbar } from '@/components/landing/navbar'
 import { Hero } from '@/components/landing/hero'
 import { Statement } from '@/components/landing/statement'
+import { HowItWorks } from '@/components/landing/how-it-works'
 
 import { CTA } from '@/components/landing/cta'
 import { FAQ } from '@/components/landing/faq'
@@ -18,6 +19,7 @@ export default function LandingPage() {
         <Navbar />
         <Hero />
         <Statement />
+        <HowItWorks />
 
         <CTA />
         <FAQ />
