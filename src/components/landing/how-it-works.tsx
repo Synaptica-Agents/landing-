@@ -38,7 +38,7 @@ export function HowItWorks() {
             <IntegrationRow
               logo="/logos/Slack.png"
               name="Slack"
-              description="Your entire team can interact with the AI through your company chat."
+              description="Your entire team can interact with the AI through your company messaging app, just like texting a colleague."
             />
             <IntegrationRow
               logo="/logos/Anthropic.png"
