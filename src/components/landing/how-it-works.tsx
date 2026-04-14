@@ -57,9 +57,10 @@ export function HowItWorks() {
           <h2 className="text-balance text-3xl md:text-5xl lg:text-6xl font-semibold text-white/90">
             Talk to it like a colleague. It works like one too.
           </h2>
-          <p className="text-lg md:text-2xl text-neutral-400 font-sans">
-            Smart model routing. Real time research. Semantic memory. Built on the best AI infrastructure available, every component is designed to understand, remember, and execute.
-          </p>
+          <div className="space-y-3 text-lg md:text-2xl text-neutral-400 font-sans">
+            <p>Smart model routing. Real time research. Semantic memory.</p>
+            <p>Built on the best AI infrastructure available, every component is designed to understand, remember, and execute.</p>
+          </div>
         </div>
       </div>
     </section>
