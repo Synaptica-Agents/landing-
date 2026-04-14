@@ -8,19 +8,19 @@ type IntegrationRowProps = {
 
 function IntegrationRow({ logo, name, description }: IntegrationRowProps) {
   return (
-    <div className="grid grid-cols-[auto_1fr] items-center gap-3 border-b border-dashed border-white/[0.08] py-3 last:border-b-0">
-      <div className="size-12 rounded-lg bg-white flex items-center justify-center overflow-hidden">
+    <div className="grid grid-cols-[auto_1fr] items-center gap-3 md:gap-5 border-b border-dashed border-white/[0.08] py-3 md:py-5 last:border-b-0">
+      <div className="size-12 md:size-16 rounded-lg md:rounded-xl bg-white flex items-center justify-center overflow-hidden">
         <Image
           src={logo}
           alt={name}
-          width={32}
-          height={32}
-          className="object-contain"
+          width={40}
+          height={40}
+          className="size-8 md:size-10 object-contain"
         />
       </div>
-      <div className="space-y-0.5 min-w-0">
-        <h3 className="text-sm font-medium text-white">{name}</h3>
-        <p className="text-xs text-neutral-400 font-sans leading-snug">{description}</p>
+      <div className="space-y-0.5 md:space-y-1 min-w-0">
+        <h3 className="text-sm md:text-lg font-medium text-white">{name}</h3>
+        <p className="text-xs md:text-base text-neutral-400 font-sans leading-snug">{description}</p>
       </div>
     </div>
   )
@@ -33,8 +33,8 @@ export function HowItWorks() {
       className="min-h-screen flex items-center justify-center px-6 py-20 snap-start"
     >
       <div className="mx-auto max-w-5xl w-full">
-        <div className="mx-auto max-w-md [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
-          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm px-6 pt-3 pb-8 shadow-xl">
+        <div className="mx-auto max-w-md md:max-w-2xl [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm px-6 pt-3 pb-8 md:px-10 md:pt-5 md:pb-12 shadow-xl">
             <IntegrationRow
               logo="/logos/Slack.png"
               name="Slack"
