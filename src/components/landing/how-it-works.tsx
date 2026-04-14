@@ -58,7 +58,7 @@ export function HowItWorks() {
             Talk to it like a colleague. It works like one too.
           </h2>
           <p className="text-lg md:text-2xl text-neutral-400 font-sans">
-            Connect seamlessly with popular platforms and services to enhance your workflow.
+            Smart model routing. Real time research. Semantic memory. Built on the best AI infrastructure available, every component is designed to understand, remember, and execute.
           </p>
         </div>
       </div>
