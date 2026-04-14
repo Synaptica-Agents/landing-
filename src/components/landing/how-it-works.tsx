@@ -55,7 +55,7 @@ export function HowItWorks() {
 
         <div className="mx-auto mt-10 max-w-3xl space-y-6 text-center">
           <h2 className="text-balance text-3xl md:text-5xl lg:text-6xl font-semibold text-white/90">
-            Integrate with your favorite LLMs
+            Talk to it like a colleague. It works like one too.
           </h2>
           <p className="text-lg md:text-2xl text-neutral-400 font-sans">
             Connect seamlessly with popular platforms and services to enhance your workflow.
