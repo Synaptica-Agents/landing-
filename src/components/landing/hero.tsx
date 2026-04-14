@@ -105,7 +105,7 @@ export function Hero() {
     <section className="min-h-screen flex items-center justify-center px-6 pt-20 snap-start">
       <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-4 md:gap-4">
         {/* Spline 3D */}
-        <div className="w-full max-w-[320px] h-[380px] mx-auto md:max-w-none md:mx-0 md:flex-[1.2] md:h-[520px] relative overflow-hidden">
+        <div className="w-full h-[380px] md:flex-[1.2] md:h-[520px] relative overflow-hidden">
           <SplineScene
             scene="https://prod.spline.design/ofSVkzNdOvfRdlLP/scene.splinecode"
             className="w-full h-full scale-[0.6] md:scale-110"
