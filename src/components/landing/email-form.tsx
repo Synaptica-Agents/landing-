@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -14,7 +15,7 @@ interface EmailFormProps {
   variant?: 'default' | 'inline'
 }
 
-export function EmailForm({ source, variant = 'default' }: EmailFormProps) {
+export function EmailForm({ source }: EmailFormProps) {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
   const [company, setCompany] = useState('')
@@ -85,17 +86,21 @@ export function EmailForm({ source, variant = 'default' }: EmailFormProps) {
     }
   }
 
-  const buttonClass = variant === 'inline'
-    ? 'px-8 py-3 rounded-lg bg-white text-black font-medium text-sm hover:bg-white/90 transition-colors cursor-pointer'
-    : 'px-8 py-3 rounded-lg bg-white text-black font-medium text-sm hover:bg-white/90 transition-colors cursor-pointer'
-
   const inputClass =
     'w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 text-sm focus:outline-none focus:border-white/25 transition-colors'
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <button onClick={() => setOpen(true)} className={buttonClass}>
-        Request a Demo &rarr;
+      <button
+        onClick={() => setOpen(true)}
+        className="relative text-sm font-medium rounded-full h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer bg-white text-black"
+      >
+        <span className="relative z-10 transition-all duration-500">
+          Request a Demo
+        </span>
+        <span className="absolute right-1 top-1 w-10 h-10 bg-black text-white rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-44px)] group-hover:rotate-45">
+          <ArrowUpRight size={16} />
+        </span>
       </button>
 
       <DialogContent className="sm:max-w-md w-[calc(100vw-2rem)] bg-[#0d1117] border-white/10 text-white">
