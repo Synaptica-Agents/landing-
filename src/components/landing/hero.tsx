@@ -114,7 +114,7 @@ export function Hero() {
         </div>
 
         {/* Text content outside Card */}
-        <div className="flex-[1.2] flex flex-col justify-center">
+        <div className="flex-[1.2] flex flex-col justify-center -mt-20 md:mt-0">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
             Hire your <em>dream</em><br />employee
           </h1>
