@@ -37,17 +37,17 @@ export function HowItWorks() {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm px-6 pt-3 pb-8 md:px-10 md:pt-5 md:pb-12 shadow-xl">
             <IntegrationRow
               logo="/logos/Slack.png"
-              name="Slack"
+              name="Communication Layer"
               description="Your entire team can interact with the AI through your company messaging app, just like texting a colleague."
             />
             <IntegrationRow
               logo="/logos/Anthropic.png"
-              name="Anthropic"
+              name="Cognitive Core"
               description="One model doesn't fit all. Every task is assigned its own LLM, selected by complexity and requirements."
             />
             <IntegrationRow
               logo="/logos/Perplexity.avif"
-              name="Perplexity"
+              name="Knowledge Engine"
               description="Powered by the best search and research tools. It builds its own long term memory and continuously trains itself on your business."
             />
           </div>
