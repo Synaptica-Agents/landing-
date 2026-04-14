@@ -5,13 +5,13 @@ export function Statement() {
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight text-white/90">
           Your next great hire isn&apos;t a person.
         </h2>
-        <p className="mt-6 text-lg md:text-2xl text-neutral-400 max-w-4xl mx-auto font-sans leading-relaxed">
+        <p className="mt-6 text-lg md:text-2xl text-white/90 max-w-4xl mx-auto font-sans leading-relaxed">
           Define the skills, the knowledge, the tools.
         </p>
         <p className="mt-4 text-lg md:text-2xl text-neutral-400 max-w-4xl mx-auto font-sans leading-relaxed">
-          We engineer a <em className="text-neutral-200">multi-agent AI system</em> that fits your team
-          like an employee who <em className="text-neutral-200">never sleeps</em>, <em className="text-neutral-200">never forgets</em>,
-          and plugs into <em className="text-neutral-200">every tool</em> you already use.
+          We engineer a <em className="text-white/90">multi-agent AI system</em> that fits your team
+          like an employee who never sleeps, never forgets,
+          and plugs into every tool you already use.
         </p>
       </div>
     </section>
