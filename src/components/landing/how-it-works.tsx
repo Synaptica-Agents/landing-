@@ -48,7 +48,7 @@ export function HowItWorks() {
             <IntegrationRow
               logo="/logos/Perplexity.avif"
               name="Perplexity"
-              description="Powered by the best search and research tools available today."
+              description="Powered by the best search and research tools. It builds its own long term memory and continuously trains itself on your business."
             />
           </div>
         </div>
