@@ -20,7 +20,7 @@ function IntegrationRow({ logo, name, description }: IntegrationRowProps) {
       </div>
       <div className="space-y-0.5 min-w-0">
         <h3 className="text-sm font-medium text-white">{name}</h3>
-        <p className="text-xs text-neutral-400 line-clamp-1 font-sans">{description}</p>
+        <p className="text-xs text-neutral-400 font-sans leading-snug">{description}</p>
       </div>
     </div>
   )
@@ -38,17 +38,17 @@ export function HowItWorks() {
             <IntegrationRow
               logo="/logos/Slack.png"
               name="Slack"
-              description="Team communication and collaboration hub."
+              description="Your entire team can interact with the AI through your company chat."
             />
             <IntegrationRow
               logo="/logos/Anthropic.png"
               name="Anthropic"
-              description="Claude AI model for advanced reasoning tasks."
+              description="One model doesn't fit all. Every task is assigned its own LLM, selected by complexity and requirements."
             />
             <IntegrationRow
               logo="/logos/Perplexity.avif"
               name="Perplexity"
-              description="AI-powered search and research platform."
+              description="Powered by the best search and research tools available today."
             />
           </div>
         </div>
