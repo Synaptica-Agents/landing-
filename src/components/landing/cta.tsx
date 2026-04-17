@@ -1,24 +1,26 @@
 import { EmailForm } from './email-form'
-import { LightSectionWaves } from '@/components/ui/light-section-waves'
+import { GlowyWavesBackground } from '@/components/ui/glowy-waves-background'
 
 export function CTA() {
   return (
-    <section id="cta" className="relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 snap-start bg-gradient-to-b from-white from-60% via-blue-100 via-85% to-blue-300">
-      <LightSectionWaves />
+    <section
+      id="cta"
+      data-theme="dark"
+      className="relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 snap-start bg-background"
+    >
+      <GlowyWavesBackground />
       <div className="relative z-10 max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-blue-950 to-slate-500">
-          Meet your new <em>AI-Employee.</em>
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+          Your team. Amplified.
         </h2>
-        <p className="mt-6 text-lg md:text-2xl text-slate-600 font-sans">
-          The next wave of productivity isn&apos;t a tool. It&apos;s a teammate.
-          <br />
-          Don&apos;t be the last to figure that out.
+        <p className="mt-6 text-lg md:text-2xl text-white/70 max-w-4xl mx-auto font-sans leading-relaxed">
+          Investment decisions stay where they belong: with you. We handle the research, the triage, and the monitoring, so your judgment is always backed by better data.
         </p>
         <div className="mt-10 flex justify-center">
           <EmailForm source="cta" variant="inline" />
         </div>
-        <p className="mt-4 text-xs md:text-sm text-slate-500 font-sans">
-          Powered by your favorite AI Models. Orchestrated for your business.
+        <p className="mt-4 text-xs md:text-sm text-white/50 font-sans">
+          30-minute onboarding. Works with your existing stack.
         </p>
       </div>
     </section>

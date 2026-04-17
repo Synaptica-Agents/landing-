@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { LightSectionWaves } from '@/components/ui/light-section-waves'
 
 const faqs = [
   {
@@ -30,29 +29,32 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section id="faq" className="relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 py-20 snap-start bg-gradient-to-b from-white from-60% via-blue-100 via-85% to-blue-300">
-      <LightSectionWaves />
-      <div className="relative z-10 max-w-3xl mx-auto w-full">
-        <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-b from-blue-950 to-slate-500">
+    <section
+      id="faq"
+      data-theme="dark"
+      className="min-h-screen flex items-center justify-center px-6 py-20 snap-start bg-background"
+    >
+      <div className="max-w-3xl mx-auto w-full">
+        <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
           Common questions.
         </h2>
         <div className="space-y-3">
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="border border-slate-200 rounded-lg overflow-hidden bg-white"
+              className="border border-white/10 rounded-lg overflow-hidden bg-white/[0.03]"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between p-5 text-left text-slate-900 font-sans font-medium text-sm md:text-base hover:bg-slate-50 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between p-5 text-left text-white font-sans font-medium text-sm md:text-base hover:bg-white/5 transition-colors cursor-pointer"
               >
                 {faq.q}
-                <span className="text-slate-400 text-xl ml-4 shrink-0">
+                <span className="text-white/40 text-xl ml-4 shrink-0">
                   {openIndex === i ? '\u2212' : '+'}
                 </span>
               </button>
               {openIndex === i && (
-                <div className="px-5 pb-5 text-slate-600 text-sm md:text-base font-sans leading-relaxed">
+                <div className="px-5 pb-5 text-white/70 text-sm md:text-base font-sans leading-relaxed">
                   {faq.a}
                 </div>
               )}

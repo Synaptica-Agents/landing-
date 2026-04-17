@@ -1,15 +1,15 @@
 export function Footer() {
   return (
-    <footer className="border-t border-slate-200 py-8 px-6 bg-gradient-to-b from-blue-50 to-white">
+    <footer data-theme="dark" className="border-t border-white/10 py-8 px-6 bg-background">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span className="text-slate-500 text-xs font-sans">
+        <span className="text-white/40 text-xs font-sans">
           &copy; 2026 Synaptica. All rights reserved.
         </span>
         <div className="flex items-center gap-6">
-          <a href="#" className="text-slate-500 text-xs font-sans hover:text-slate-900 transition-colors">Privacy</a>
-          <a href="#" className="text-slate-500 text-xs font-sans hover:text-slate-900 transition-colors">Terms</a>
-          <a href="mailto:hello@synaptica.ai" className="text-slate-500 text-xs font-sans hover:text-slate-900 transition-colors">Contact</a>
-          <a href="#" className="text-slate-500 text-xs font-sans hover:text-slate-900 transition-colors">Imprint</a>
+          <a href="#" className="text-white/40 text-xs font-sans hover:text-white transition-colors">Privacy</a>
+          <a href="#" className="text-white/40 text-xs font-sans hover:text-white transition-colors">Terms</a>
+          <a href="mailto:hello@synaptica.ai" className="text-white/40 text-xs font-sans hover:text-white transition-colors">Contact</a>
+          <a href="#" className="text-white/40 text-xs font-sans hover:text-white transition-colors">Imprint</a>
         </div>
       </div>
     </footer>
