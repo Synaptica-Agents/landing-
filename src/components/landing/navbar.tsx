@@ -22,12 +22,12 @@ export function Navbar() {
     <header className="fixed top-0 left-0 z-50 p-6">
       <a href="#">
         <Image
-          src="/Logo Synaptica.png"
+          src="/Logo Synaptica Navy.png"
           alt="Synaptica"
           width={160}
           height={44}
           className="h-11 w-auto transition-all duration-300"
-          style={overDark ? { mixBlendMode: 'screen' } : { filter: 'invert(1)' }}
+          style={overDark ? { filter: 'brightness(0) invert(1)' } : undefined}
           priority
         />
       </a>
