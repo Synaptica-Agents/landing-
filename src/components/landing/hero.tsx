@@ -5,11 +5,10 @@ export function Hero() {
     <section className="min-h-screen flex items-center justify-center px-6 pt-20 snap-start">
       <div className="w-full max-w-3xl flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
-          Hire your <em>dream</em><br />employee
+          Deal Flow Intelligence for Modern VC Funds
         </h1>
-        <p className="mt-6 text-neutral-300 max-w-lg mx-auto text-base md:text-xl leading-relaxed font-sans">
-          Built for your industry. Plugged into your tools.
-          Designed to act, not just answer.
+        <p className="mt-6 text-neutral-300 max-w-xl mx-auto text-base md:text-xl leading-relaxed font-sans">
+          AI agents that triage inbound pitches, monitor your portfolio, and generate market intelligence. Running autonomously inside the tools your team already uses.
         </p>
         <p className="mt-3 text-base md:text-xl font-sans">
           <strong className="text-white">A whole new level of automation!</strong>
