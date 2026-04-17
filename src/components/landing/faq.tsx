@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     q: 'What exactly do the agents handle for our fund?',
-    a: 'Synaptica takes over the operational backbone of a modern VC fund. The agents triage and score incoming pitches against your ICP, monitor your portfolio through emails and public signals, run market and competitive research, handle deep founder research using the best tools available today, and prepare briefings and LP reports.',
+    a: 'Synaptica takes over the operational backbone of a modern VC fund.\n\nThe agents triage and score incoming pitches against your ICP, monitor your portfolio through emails and public signals, run market and competitive research, handle deep founder research, and prepare briefings and LP reports.',
   },
   {
     q: 'How is this different from using AI chat tools we already have?',
