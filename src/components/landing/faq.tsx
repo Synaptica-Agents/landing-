@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { LightSectionWaves } from '@/components/ui/light-section-waves'
 
 const faqs = [
   {
@@ -29,8 +30,9 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section id="faq" className="min-h-screen flex items-center justify-center px-6 py-20 snap-start bg-gradient-to-b from-white via-slate-50 to-blue-50">
-      <div className="max-w-3xl mx-auto w-full">
+    <section id="faq" className="relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 py-20 snap-start bg-gradient-to-b from-white via-blue-100 to-blue-300">
+      <LightSectionWaves />
+      <div className="relative z-10 max-w-3xl mx-auto w-full">
         <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-b from-blue-950 to-slate-500">
           Common questions.
         </h2>

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { LightSectionWaves } from '@/components/ui/light-section-waves'
 
 type IntegrationRowProps = {
   logo: string
@@ -30,9 +31,10 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="min-h-screen flex items-center justify-center px-6 py-20 snap-start bg-gradient-to-b from-white via-slate-50 to-blue-50"
+      className="relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 py-20 snap-start bg-gradient-to-b from-white via-blue-100 to-blue-300"
     >
-      <div className="mx-auto max-w-5xl w-full">
+      <LightSectionWaves />
+      <div className="relative z-10 mx-auto max-w-5xl w-full">
         <div className="mx-auto max-w-md md:max-w-2xl [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
           <div className="rounded-xl border border-slate-200 bg-white px-6 pt-3 pb-8 md:px-10 md:pt-5 md:pb-12 shadow-xl">
             <IntegrationRow
@@ -50,16 +52,6 @@ export function HowItWorks() {
               name="Knowledge Engine"
               description="Powered by the best search and research tools. It builds its own long term memory and continuously trains itself on your business."
             />
-          </div>
-        </div>
-
-        <div className="mx-auto mt-10 max-w-3xl space-y-6 text-center">
-          <h2 className="text-balance text-3xl md:text-5xl lg:text-6xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-blue-950 to-slate-500">
-            Talk to it like a colleague. It works like one too.
-          </h2>
-          <div className="space-y-3 text-lg md:text-2xl font-sans">
-            <p className="text-slate-900">Smart model routing. Real time research. Semantic memory.</p>
-            <p className="text-slate-600">Built on the best AI infrastructure available, every component is designed to understand, remember, and execute.</p>
           </div>
         </div>
       </div>
