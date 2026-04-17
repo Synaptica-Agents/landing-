@@ -3,7 +3,7 @@ import { GlowyWavesBackground } from "@/components/ui/glowy-waves-background"
 
 export function Hero() {
   return (
-    <section className="relative isolate min-h-screen flex items-center justify-center px-6 pt-20 snap-start overflow-hidden">
+    <section id="hero" className="relative isolate min-h-screen flex items-center justify-center px-6 pt-20 snap-start overflow-hidden">
       <GlowyWavesBackground />
       <div className="relative z-10 w-full max-w-3xl flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">

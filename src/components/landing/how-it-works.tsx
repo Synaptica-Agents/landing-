@@ -8,7 +8,7 @@ type IntegrationRowProps = {
 
 function IntegrationRow({ logo, name, description }: IntegrationRowProps) {
   return (
-    <div className="grid grid-cols-[auto_1fr] items-center gap-3 md:gap-5 border-b border-dashed border-border py-3 md:py-5 last:border-b-0">
+    <div className="grid grid-cols-[auto_1fr] items-center gap-3 md:gap-5 border-b border-dashed border-slate-200 py-3 md:py-5 last:border-b-0">
       <div className="size-12 md:size-16 rounded-lg md:rounded-xl bg-white flex items-center justify-center overflow-hidden">
         <Image
           src={logo}
@@ -19,8 +19,8 @@ function IntegrationRow({ logo, name, description }: IntegrationRowProps) {
         />
       </div>
       <div className="space-y-0.5 md:space-y-1 min-w-0">
-        <h3 className="text-sm md:text-lg font-medium text-foreground">{name}</h3>
-        <p className="text-xs md:text-base text-foreground/60 font-sans leading-snug">{description}</p>
+        <h3 className="text-sm md:text-lg font-medium text-slate-900">{name}</h3>
+        <p className="text-xs md:text-base text-slate-600 font-sans leading-snug">{description}</p>
       </div>
     </div>
   )
@@ -30,11 +30,11 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="min-h-screen flex items-center justify-center px-6 py-20 snap-start"
+      className="min-h-screen flex items-center justify-center px-6 py-20 snap-start bg-gradient-to-b from-white via-slate-50 to-blue-50"
     >
       <div className="mx-auto max-w-5xl w-full">
         <div className="mx-auto max-w-md md:max-w-2xl [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
-          <div className="rounded-xl border border-border bg-foreground/[0.03] backdrop-blur-sm px-6 pt-3 pb-8 md:px-10 md:pt-5 md:pb-12 shadow-xl">
+          <div className="rounded-xl border border-slate-200 bg-white px-6 pt-3 pb-8 md:px-10 md:pt-5 md:pb-12 shadow-xl">
             <IntegrationRow
               logo="/logos/Slack.png"
               name="Communication Layer"
@@ -54,12 +54,12 @@ export function HowItWorks() {
         </div>
 
         <div className="mx-auto mt-10 max-w-3xl space-y-6 text-center">
-          <h2 className="text-balance text-3xl md:text-5xl lg:text-6xl font-semibold text-foreground/90">
+          <h2 className="text-balance text-3xl md:text-5xl lg:text-6xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-blue-950 to-slate-500">
             Talk to it like a colleague. It works like one too.
           </h2>
           <div className="space-y-3 text-lg md:text-2xl font-sans">
-            <p className="text-foreground/90">Smart model routing. Real time research. Semantic memory.</p>
-            <p className="text-foreground/60">Built on the best AI infrastructure available, every component is designed to understand, remember, and execute.</p>
+            <p className="text-slate-900">Smart model routing. Real time research. Semantic memory.</p>
+            <p className="text-slate-600">Built on the best AI infrastructure available, every component is designed to understand, remember, and execute.</p>
           </div>
         </div>
       </div>
