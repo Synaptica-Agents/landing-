@@ -13,8 +13,11 @@ export function CTA() {
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
           Your team. Amplified.
         </h2>
-        <p className="mt-6 text-lg md:text-2xl text-white/70 max-w-4xl mx-auto font-sans leading-relaxed">
-          Investment decisions stay where they belong: with you. We handle the research, the triage, and the monitoring, so your judgment is always backed by better data.
+        <p className="mt-6 text-lg md:text-2xl text-white max-w-4xl mx-auto font-sans leading-relaxed pb-1">
+          Investment decisions stay where they belong: with you.
+        </p>
+        <p className="mt-4 text-lg md:text-2xl text-white max-w-4xl mx-auto font-sans leading-relaxed pb-1">
+          We handle the research, the triage, and the monitoring, so your judgment is always backed by better data.
         </p>
         <div className="mt-10 flex justify-center">
           <EmailForm source="cta" variant="inline" />
