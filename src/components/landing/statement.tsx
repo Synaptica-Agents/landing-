@@ -6,11 +6,11 @@ export function Statement() {
           Venture capital is a people business.<br />
           It always will be.
         </h2>
-        <p className="mt-6 text-lg md:text-2xl text-foreground/90 max-w-4xl mx-auto font-sans leading-relaxed">
-          Every week, your team processes hundreds of inbound pitches, tracks dozens of portfolio companies, and generates market research for the next investment thesis.
+        <p className="mt-6 text-lg md:text-2xl text-foreground/90 max-w-5xl mx-auto font-sans leading-relaxed">
+          No AI will ever replace what a great investor does: spotting something in a founder that data can&apos;t see. Building relationships. Making the call no one else would make.
         </p>
-        <p className="mt-4 text-lg md:text-2xl text-foreground/60 max-w-4xl mx-auto font-sans leading-relaxed">
-          Synaptica deploys specialized AI agents that handle these workflows autonomously. Your team reviews the output, makes the decisions, and focuses on what actually moves returns: meeting founders and closing deals.
+        <p className="mt-4 text-lg md:text-2xl text-foreground/60 max-w-5xl mx-auto font-sans leading-relaxed">
+          But the volume of pitches has become inhuman. More founders. More decks. More noise than any investor can process.
         </p>
       </div>
     </section>
