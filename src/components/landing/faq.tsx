@@ -12,6 +12,10 @@ const faqs = [
     a: 'Synaptica takes over the operational backbone of a modern VC fund. The agents triage and score incoming pitches against your ICP, monitor your portfolio through emails and public signals, run market and competitive research, handle deep founder research using the best tools available today, and prepare briefings and LP reports.',
   },
   {
+    q: 'How is this different from using AI chat tools we already have?',
+    a: 'Synaptica runs continuously in the background and remembers everything across months, including deal context, founder history, and your scoring logic. It integrates directly into your existing tools, so the work happens where your data already lives. And while it\u2019s built on top of the strongest foundation models available, including those from providers like Anthropic, the system itself is trained and tuned specifically for VC workflows, which means the output is sharper and more relevant than anything a general-purpose chat tool can deliver.',
+  },
+  {
     q: 'How is our deal-flow data protected?',
     a: 'Every customer gets an isolated container with a dedicated database, so your data never touches another fund\u2019s. EU-hosted, GDPR-compliant, encrypted. Your pipeline data is never used to train models, neither by us nor by our infrastructure providers.',
   },
