@@ -6,7 +6,7 @@ const NUM_NEURONS = 400
 const SPHERE_RADIUS = 250
 const NEIGHBOR_RADIUS = 55
 const PERSPECTIVE = 400
-const TRAIL_COLOR = 'rgba(10, 14, 35, 0.22)'
+const TRAIL_COLOR = 'rgba(14, 22, 54, 0.22)'
 
 type Neuron = {
   baseX: number
