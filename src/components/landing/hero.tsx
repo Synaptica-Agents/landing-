@@ -15,10 +15,13 @@ export function Hero() {
       />
       <div className="relative z-10 w-full max-w-3xl lg:max-w-5xl flex flex-col items-center text-center">
         <h1
-          className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200 leading-tight"
+          className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
           style={{ textShadow: '0 2px 18px rgba(0,0,0,0.55)' }}
         >
-          Deal Flow Intelligence <span className="lg:block">for Venture Capital Funds</span>
+          <span className="text-white">Deal Flow Intelligence</span>{' '}
+          <span className="lg:block bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">
+            for Venture Capital Funds
+          </span>
         </h1>
         <p
           className="mt-6 max-w-xl mx-auto text-lg md:text-2xl leading-relaxed font-sans text-white"
@@ -34,13 +37,13 @@ export function Hero() {
           <EmailForm source="hero" />
         </div>
 
-        <p className="mt-4 text-foreground/50 text-xs md:text-sm font-sans">
+        <p className="mt-4 text-foreground/85 text-sm md:text-base font-sans">
           30-minute onboarding. No migration required.
         </p>
         <div className="flex gap-4 mt-3 justify-center">
-          <span className="text-[11px] md:text-sm text-foreground/60 font-mono tracking-wide uppercase">GDPR Compliant</span>
-          <span className="text-[11px] md:text-sm text-foreground/60 font-mono tracking-wide uppercase">EU-Hosted</span>
-          <span className="text-[11px] md:text-sm text-foreground/60 font-mono tracking-wide uppercase">Encrypted</span>
+          <span className="text-xs md:text-base text-foreground/85 font-mono tracking-wide uppercase">GDPR Compliant</span>
+          <span className="text-xs md:text-base text-foreground/85 font-mono tracking-wide uppercase">EU-Hosted</span>
+          <span className="text-xs md:text-base text-foreground/85 font-mono tracking-wide uppercase">Encrypted</span>
         </div>
       </div>
     </section>
