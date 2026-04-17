@@ -36,9 +36,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://prod.spline.design" crossOrigin="anonymous" />
-      </head>
       <body
         className={`${inter.variable} ${playfair.variable} ${dmMono.variable} antialiased`}
       >
