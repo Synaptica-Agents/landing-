@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: 'How fast can we go live?',
-    a: 'Onboarding takes around 30 minutes. You connect your tools, define your ICP, and activate the first agents. Over the first weeks we tune the scoring logic and workflows together to fit your fund. You get a 30-day pilot, after which you decide whether to continue.',
+    a: 'Onboarding takes around 30 minutes. You connect your tools, define your ICP, and activate the first agents.\n\nOver the first weeks we tune the scoring logic and workflows together to fit your fund. You get a 30-day pilot, after which you decide whether to continue.',
   },
 ]
 
