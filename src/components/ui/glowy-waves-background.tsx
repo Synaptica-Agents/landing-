@@ -79,14 +79,14 @@ export function GlowyWavesBackground() {
             offset: 0,
             amplitude: 70,
             frequency: 0.003,
-            color: resolveColor(['--primary'], 0.8),
+            color: resolveColor(['--secondary'], 0.8),
             opacity: 0.45,
           },
           {
             offset: Math.PI / 2,
             amplitude: 90,
             frequency: 0.0026,
-            color: resolveColor(['--accent', '--primary'], 0.7),
+            color: resolveColor(['--accent', '--secondary'], 0.7),
             opacity: 0.35,
           },
           {
@@ -248,7 +248,7 @@ export function GlowyWavesBackground() {
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute left-1/2 top-0 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-foreground/[0.06] blur-[140px]" />
         <div className="absolute bottom-0 right-0 h-[360px] w-[360px] rounded-full bg-foreground/[0.05] blur-[120px]" />
-        <div className="absolute top-1/2 left-1/4 h-[400px] w-[400px] rounded-full bg-primary/[0.05] blur-[150px]" />
+        <div className="absolute top-1/2 left-1/4 h-[400px] w-[400px] rounded-full bg-secondary/[0.05] blur-[150px]" />
       </div>
     </>
   )
