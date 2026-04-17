@@ -5,7 +5,7 @@ import { useState } from 'react'
 const faqs = [
   {
     q: 'Do we need to replace our existing CRM or tools?',
-    a: 'No. Synaptica works as a layer on top of the tools your team already uses, including CRM, email, notes, and calendar. No data export, no migration, no retraining for the team. The agents read, write, and synthesize where your data already lives.',
+    a: 'No. Synaptica works as a layer on top of the tools your team already uses, including CRM, email, notes, and calendar.\n\nNo data export, no migration, no retraining for the team. The agents read, write, and synthesize where your data already lives.',
   },
   {
     q: 'What exactly do the agents handle for our fund?',
@@ -54,8 +54,10 @@ export function FAQ() {
                 </span>
               </button>
               {openIndex === i && (
-                <div className="px-5 pb-5 text-white/70 text-sm md:text-base font-sans leading-relaxed">
-                  {faq.a}
+                <div className="px-5 pb-5 text-white/70 text-sm md:text-base font-sans leading-relaxed space-y-3">
+                  {faq.a.split('\n\n').map((para, j) => (
+                    <p key={j}>{para}</p>
+                  ))}
                 </div>
               )}
             </div>
