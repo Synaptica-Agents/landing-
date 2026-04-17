@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: 'How is our deal-flow data protected?',
-    a: 'Every customer gets an isolated container with a dedicated database, so your data never touches another fund\u2019s. EU-hosted, GDPR-compliant, encrypted. Your pipeline data is never used to train models, neither by us nor by our infrastructure providers.',
+    a: 'Every customer gets an isolated container with a dedicated database, so your data never touches another fund\u2019s.\n\nEU-hosted, GDPR-compliant, encrypted. Your pipeline data is never used to train models, neither by us nor by our infrastructure providers.',
   },
   {
     q: 'How fast can we go live?',
