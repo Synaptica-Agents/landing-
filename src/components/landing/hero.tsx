@@ -9,7 +9,7 @@ export function Hero() {
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
           Deal Flow Intelligence for Modern VC Funds
         </h1>
-        <p className="mt-6 max-w-xl mx-auto text-lg md:text-2xl leading-relaxed font-sans bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-300">
+        <p className="mt-6 max-w-xl mx-auto text-lg md:text-2xl leading-relaxed font-sans text-white">
           AI agents that triage inbound pitches, monitor your portfolio, and generate market intelligence.
         </p>
         <p className="mt-4 text-base md:text-xl font-sans text-foreground font-medium">
