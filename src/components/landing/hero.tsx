@@ -10,9 +10,6 @@ export function Hero() {
         <p className="mt-6 text-neutral-300 max-w-xl mx-auto text-base md:text-xl leading-relaxed font-sans">
           AI agents that triage inbound pitches, monitor your portfolio, and generate market intelligence. Running autonomously inside the tools your team already uses.
         </p>
-        <p className="mt-3 text-base md:text-xl font-sans">
-          <strong className="text-white">A whole new level of automation!</strong>
-        </p>
 
         <div className="mt-8">
           <EmailForm source="hero" />
