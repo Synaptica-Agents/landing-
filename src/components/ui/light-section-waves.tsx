@@ -27,14 +27,14 @@ export function LightSectionWaves() {
         offset: 0,
         amplitude: 45,
         frequency: 0.003,
-        color: 'rgba(255, 255, 255, 0.9)',
-        opacity: 0.6,
+        color: 'rgba(255, 255, 255, 0.5)',
+        opacity: 0.55,
       },
       {
         offset: Math.PI,
         amplitude: 55,
         frequency: 0.0026,
-        color: 'rgba(148, 163, 184, 0.8)',
+        color: 'rgba(147, 197, 253, 0.55)',
         opacity: 0.5,
       },
     ]
