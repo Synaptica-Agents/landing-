@@ -13,7 +13,7 @@ export function SmoothSnap() {
     if (typeof window === 'undefined') return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const container = document.querySelector<HTMLElement>('[data-slot="stars-background"]')
+    const container = document.querySelector<HTMLElement>('[data-slot="snap-scroll"]')
     if (!container) return
 
     let raf: number | null = null

@@ -95,19 +95,15 @@
     @apply font-sans;
     scroll-behavior: smooth;
   }
-  [data-slot="stars-background"] {
+  [data-slot="snap-scroll"] {
     scroll-behavior: smooth;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html,
-  [data-slot="stars-background"] {
+  [data-slot="snap-scroll"] {
     scroll-behavior: auto;
-  }
-  [data-slot="star-layer"] {
-    animation: none !important;
-    transform: none !important;
   }
   :root {
     --animate-spotlight: none;

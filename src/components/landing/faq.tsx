@@ -31,26 +31,26 @@ export function FAQ() {
   return (
     <section id="faq" className="min-h-screen flex items-center justify-center px-6 py-20 snap-start">
       <div className="max-w-3xl mx-auto w-full">
-        <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12 text-white/90">
+        <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12 text-foreground/90">
           Common questions.
         </h2>
         <div className="space-y-3">
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="border border-white/[0.08] rounded-lg overflow-hidden"
+              className="border border-border rounded-lg overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between p-5 text-left text-white font-sans font-medium text-sm md:text-base hover:bg-white/[0.02] transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between p-5 text-left text-foreground font-sans font-medium text-sm md:text-base hover:bg-foreground/[0.02] transition-colors cursor-pointer"
               >
                 {faq.q}
-                <span className="text-white/40 text-xl ml-4 shrink-0">
+                <span className="text-foreground/40 text-xl ml-4 shrink-0">
                   {openIndex === i ? '\u2212' : '+'}
                 </span>
               </button>
               {openIndex === i && (
-                <div className="px-5 pb-5 text-neutral-400 text-sm md:text-base font-sans leading-relaxed">
+                <div className="px-5 pb-5 text-foreground/60 text-sm md:text-base font-sans leading-relaxed">
                   {faq.a}
                 </div>
               )}

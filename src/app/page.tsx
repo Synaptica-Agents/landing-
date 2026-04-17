@@ -1,6 +1,5 @@
 'use client'
 
-import { StarsBackground } from '@/components/ui/stars'
 import { SmoothSnap } from '@/components/ui/smooth-snap'
 import { Navbar } from '@/components/landing/navbar'
 import { Hero } from '@/components/landing/hero'
@@ -13,7 +12,10 @@ import { Footer } from '@/components/landing/footer'
 
 export default function LandingPage() {
   return (
-    <StarsBackground className="h-screen bg-[radial-gradient(ellipse_at_bottom,_#0d1117_0%,_#080b14_100%)] snap-y snap-mandatory">
+    <div
+      data-slot="snap-scroll"
+      className="relative size-full overflow-x-hidden overflow-y-auto h-screen snap-y snap-mandatory bg-background"
+    >
       <SmoothSnap />
       <main className="relative z-10">
         <Navbar />
@@ -25,6 +27,6 @@ export default function LandingPage() {
         <FAQ />
         <Footer />
       </main>
-    </StarsBackground>
+    </div>
   )
 }
