@@ -6,7 +6,7 @@ export function Hero() {
     <section id="hero" data-theme="dark" className="relative isolate min-h-screen flex items-center justify-center px-6 pt-20 snap-start overflow-hidden">
       <GlowyWavesBackground />
       <div className="relative z-10 w-full max-w-3xl lg:max-w-5xl flex flex-col items-center text-center">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200 leading-tight">
           Deal Flow Intelligence <span className="lg:block">for Venture Capital Funds</span>
         </h1>
         <p className="mt-6 max-w-xl mx-auto text-lg md:text-2xl leading-relaxed font-sans text-white">
