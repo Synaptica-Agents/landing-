@@ -8,7 +8,10 @@ export function Hero() {
           Deal Flow Intelligence for Modern VC Funds
         </h1>
         <p className="mt-6 text-neutral-300 max-w-xl mx-auto text-base md:text-xl leading-relaxed font-sans">
-          AI agents that triage inbound pitches, monitor your portfolio, and generate market intelligence. Running autonomously inside the tools your team already uses.
+          AI agents that triage inbound pitches, monitor your portfolio, and generate market intelligence.
+        </p>
+        <p className="mt-4 text-base md:text-xl font-sans text-white font-medium">
+          Integrates with your existing stack.
         </p>
 
         <div className="mt-8">
@@ -16,7 +19,6 @@ export function Hero() {
         </div>
 
         <p className="mt-4 text-neutral-500 text-xs md:text-sm font-sans">
-          Integrates with your existing stack.<br />
           30-minute onboarding. No migration required.
         </p>
         <div className="flex gap-4 mt-3 justify-center">
