@@ -21,7 +21,7 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Synaptica Agents — The Future of Business Automation",
+  title: "Synaptica - AI Agents for VC Funds",
   description:
     "Your new orchestrated multi-agent system: Specialized in your industry, tailored to your business. Completely ready to use.",
   icons: {
