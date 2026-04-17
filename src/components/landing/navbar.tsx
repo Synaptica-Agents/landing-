@@ -4,17 +4,35 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 export function Navbar() {
-  const [overDark, setOverDark] = useState(true)
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
 
   useEffect(() => {
-    const hero = document.getElementById('hero')
-    if (!hero) return
+    const sections = document.querySelectorAll<HTMLElement>('[data-theme]')
+    if (!sections.length) return
+
+    const ratios = new Map<Element, number>()
 
     const observer = new IntersectionObserver(
-      ([entry]) => setOverDark(entry.intersectionRatio >= 0.5),
+      (entries) => {
+        for (const entry of entries) {
+          ratios.set(entry.target, entry.intersectionRatio)
+        }
+        let top: HTMLElement | null = null
+        let maxRatio = 0
+        for (const [el, ratio] of ratios) {
+          if (ratio > maxRatio) {
+            maxRatio = ratio
+            top = el as HTMLElement
+          }
+        }
+        if (top) {
+          const t = top.getAttribute('data-theme')
+          setTheme(t === 'light' ? 'light' : 'dark')
+        }
+      },
       { threshold: [0, 0.25, 0.5, 0.75, 1] },
     )
-    observer.observe(hero)
+    sections.forEach((s) => observer.observe(s))
     return () => observer.disconnect()
   }, [])
 
@@ -24,10 +42,10 @@ export function Navbar() {
         <Image
           src="/Logo Synaptica Navy.png"
           alt="Synaptica"
-          width={160}
-          height={44}
-          className="h-11 w-auto transition-all duration-300"
-          style={overDark ? { filter: 'brightness(0) invert(1)' } : undefined}
+          width={200}
+          height={56}
+          className="h-14 w-auto transition-all duration-300"
+          style={theme === 'dark' ? { filter: 'brightness(0) invert(1)' } : undefined}
           priority
         />
       </a>

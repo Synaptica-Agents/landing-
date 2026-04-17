@@ -94,13 +94,13 @@ export function EmailForm({ source }: EmailFormProps) {
       {source === 'hero' ? (
         <button
           onClick={() => setOpen(true)}
-          className="relative text-lg font-medium rounded-full h-16 p-1 ps-10 pe-20 group transition-all duration-500 hover:ps-20 hover:pe-10 w-fit overflow-hidden cursor-pointer bg-white text-black"
+          className="relative text-base font-medium rounded-full h-14 p-1 ps-8 pe-16 group transition-all duration-500 hover:ps-16 hover:pe-8 w-fit overflow-hidden cursor-pointer bg-white text-black"
         >
           <span className="relative z-10 transition-all duration-500">
             Request a Demo
           </span>
-          <span className="absolute right-1 top-1 w-14 h-14 bg-black text-white rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-60px)] group-hover:rotate-45">
-            <ArrowUpRight size={22} />
+          <span className="absolute right-1 top-1 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-52px)] group-hover:rotate-45">
+            <ArrowUpRight size={20} />
           </span>
         </button>
       ) : (
