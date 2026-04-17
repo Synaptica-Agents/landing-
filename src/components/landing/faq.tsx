@@ -4,24 +4,20 @@ import { useState } from 'react'
 
 const faqs = [
   {
-    q: 'Do I need any technical knowledge?',
-    a: 'Not at all. We handle the entire setup, configuration, and deployment. You interact with your AI agents through simple messaging apps, just like texting a colleague.',
+    q: 'Do we need to replace our existing CRM or tools?',
+    a: 'No. Synaptica works as a layer on top of the tools your team already uses, including CRM, email, notes, and calendar. No data export, no migration, no retraining for the team. The agents read, write, and synthesize where your data already lives.',
   },
   {
-    q: 'How is my data protected?',
-    a: 'All data is hosted on servers in Germany, fully GDPR-compliant. Each customer gets completely isolated infrastructure with encrypted connections and automated daily backups.',
+    q: 'What exactly do the agents handle for our fund?',
+    a: 'Synaptica takes over the operational backbone of a modern VC fund. The agents triage and score incoming pitches against your ICP, monitor your portfolio through emails and public signals, run market and competitive research, handle deep founder research using the best tools available today, and prepare briefings and LP reports.',
   },
   {
-    q: 'What tools can the agents connect to?',
-    a: 'We integrate with most popular business tools: Google Calendar, Slack, email, CRM systems, Canva, spreadsheets, and many more. If it has an API, we can likely connect it.',
+    q: 'How is our deal-flow data protected?',
+    a: 'Every customer gets an isolated container with a dedicated database, so your data never touches another fund\u2019s. EU-hosted, GDPR-compliant, encrypted. Your pipeline data is never used to train models, neither by us nor by our infrastructure providers.',
   },
   {
-    q: 'How long until my agents are live?',
-    a: 'Most deployments go live within 10 business days. This includes configuration, knowledge base ingestion, tool integrations, testing, and fine-tuning.',
-  },
-  {
-    q: 'What makes Synaptica different from ChatGPT?',
-    a: 'ChatGPT is a general-purpose chatbot. Synaptica is a team of specialized agents built for your specific business with long-term memory, tool access, and autonomous collaboration.',
+    q: 'How fast can we go live?',
+    a: 'Onboarding takes around 30 minutes. You connect your tools, define your ICP, and activate the first agents. Over the first weeks we tune the scoring logic and workflows together to fit your fund. You get a 30-day pilot, after which you decide whether to continue.',
   },
 ]
 
