@@ -19,7 +19,8 @@ export function Hero() {
         </div>
 
         <p className="mt-4 text-neutral-500 text-xs md:text-sm font-sans">
-          Built for European businesses &amp; their workflows
+          Integrates with your existing stack.<br />
+          30-minute onboarding. No migration required.
         </p>
         <div className="flex gap-4 mt-3 justify-center">
           <span className="text-[11px] md:text-sm text-neutral-400 font-mono tracking-wide uppercase">GDPR Compliant</span>
