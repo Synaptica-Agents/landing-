@@ -93,18 +93,10 @@
   }
   html {
     @apply font-sans;
-    scroll-behavior: smooth;
-  }
-  [data-slot="snap-scroll"] {
-    scroll-behavior: smooth;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html,
-  [data-slot="snap-scroll"] {
-    scroll-behavior: auto;
-  }
   :root {
     --animate-spotlight: none;
   }

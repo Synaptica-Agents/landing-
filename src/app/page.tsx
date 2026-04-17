@@ -1,6 +1,6 @@
 'use client'
 
-import { SmoothSnap } from '@/components/ui/smooth-snap'
+import { KeyboardSnap } from '@/components/ui/smooth-snap'
 import { Navbar } from '@/components/landing/navbar'
 import { Hero } from '@/components/landing/hero'
 import { Statement } from '@/components/landing/statement'
@@ -14,7 +14,7 @@ export default function LandingPage() {
       data-slot="snap-scroll"
       className="relative size-full overflow-x-hidden overflow-y-auto h-screen snap-y snap-mandatory bg-background"
     >
-      <SmoothSnap />
+      <KeyboardSnap />
       <main className="relative z-10">
         <Navbar />
         <Hero />

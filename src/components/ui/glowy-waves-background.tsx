@@ -11,14 +11,15 @@ interface WaveConfig {
   offset: number
   amplitude: number
   frequency: number
-  color: string
-  opacity: number
+  haloColor: string
+  coreColor: string
 }
 
 export function GlowyWavesBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const mouseRef = useRef<Point>({ x: 0, y: 0 })
   const targetMouseRef = useRef<Point>({ x: 0, y: 0 })
+  const visibleRef = useRef(true)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -32,86 +33,77 @@ export function GlowyWavesBackground() {
 
     const computeThemeColors = () => {
       const rootStyles = getComputedStyle(document.documentElement)
+      const tempEl = document.createElement('div')
+      tempEl.style.position = 'absolute'
+      tempEl.style.visibility = 'hidden'
+      tempEl.style.width = '1px'
+      tempEl.style.height = '1px'
+      document.body.appendChild(tempEl)
 
-      const resolveColor = (variables: string[], alpha = 1) => {
-        const tempEl = document.createElement('div')
-        tempEl.style.position = 'absolute'
-        tempEl.style.visibility = 'hidden'
-        tempEl.style.width = '1px'
-        tempEl.style.height = '1px'
-        document.body.appendChild(tempEl)
-
-        let color = `rgba(255, 255, 255, ${alpha})`
-
+      const resolve = (variables: string[], alpha = 1): string => {
         for (const variable of variables) {
-          const value = rootStyles.getPropertyValue(variable).trim()
-          if (value) {
-            tempEl.style.backgroundColor = `var(${variable})`
-            const computedColor = getComputedStyle(tempEl).backgroundColor
-
-            if (computedColor && computedColor !== 'rgba(0, 0, 0, 0)') {
-              if (alpha < 1) {
-                const rgbMatch = computedColor.match(
-                  /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/,
-                )
-                if (rgbMatch) {
-                  color = `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${alpha})`
-                } else {
-                  color = computedColor
-                }
-              } else {
-                color = computedColor
-              }
-              break
-            }
+          const raw = rootStyles.getPropertyValue(variable).trim()
+          if (!raw) continue
+          const css =
+            alpha >= 1
+              ? `var(${variable})`
+              : `color-mix(in srgb, var(${variable}) ${Math.round(
+                  alpha * 100,
+                )}%, transparent)`
+          tempEl.style.backgroundColor = ''
+          tempEl.style.backgroundColor = css
+          const computed = getComputedStyle(tempEl).backgroundColor
+          if (computed && computed !== 'rgba(0, 0, 0, 0)') {
+            return computed
           }
         }
-
-        document.body.removeChild(tempEl)
-        return color
+        return `rgba(255, 255, 255, ${alpha})`
       }
 
-      return {
-        backgroundTop: resolveColor(['--background'], 1),
-        backgroundBottom: resolveColor(['--muted', '--background'], 0.95),
+      const result = {
+        backgroundTop: resolve(['--background'], 1),
+        backgroundBottom: resolve(['--muted', '--background'], 0.95),
         wavePalette: [
           {
             offset: 0,
             amplitude: 70,
             frequency: 0.003,
-            color: resolveColor(['--secondary'], 0.8),
-            opacity: 0.45,
+            haloColor: resolve(['--secondary'], 0.12),
+            coreColor: resolve(['--secondary'], 0.45),
           },
           {
             offset: Math.PI / 2,
             amplitude: 90,
             frequency: 0.0026,
-            color: resolveColor(['--accent', '--secondary'], 0.7),
-            opacity: 0.35,
+            haloColor: resolve(['--accent', '--secondary'], 0.1),
+            coreColor: resolve(['--accent', '--secondary'], 0.35),
           },
           {
             offset: Math.PI,
             amplitude: 60,
             frequency: 0.0034,
-            color: resolveColor(['--secondary', '--foreground'], 0.65),
-            opacity: 0.3,
+            haloColor: resolve(['--secondary', '--foreground'], 0.08),
+            coreColor: resolve(['--secondary', '--foreground'], 0.3),
           },
           {
             offset: Math.PI * 1.5,
             amplitude: 80,
             frequency: 0.0022,
-            color: resolveColor(['--primary-foreground', '--foreground'], 0.25),
-            opacity: 0.25,
+            haloColor: resolve(['--primary-foreground', '--foreground'], 0.06),
+            coreColor: resolve(['--primary-foreground', '--foreground'], 0.25),
           },
           {
             offset: Math.PI * 2,
             amplitude: 55,
             frequency: 0.004,
-            color: resolveColor(['--foreground'], 0.2),
-            opacity: 0.2,
+            haloColor: resolve(['--foreground'], 0.05),
+            coreColor: resolve(['--foreground'], 0.2),
           },
         ] satisfies WaveConfig[],
       }
+
+      document.body.removeChild(tempEl)
+      return result
     }
 
     let themeColors = computeThemeColors()
@@ -166,10 +158,8 @@ export function GlowyWavesBackground() {
     window.addEventListener('mouseleave', handleMouseLeave)
 
     const drawWave = (wave: WaveConfig) => {
-      ctx.save()
       ctx.beginPath()
-
-      for (let x = 0; x <= canvas.width; x += 4) {
+      for (let x = 0; x <= canvas.width; x += 6) {
         const dx = x - mouseRef.current.x
         const dy = canvas.height / 2 - mouseRef.current.y
         const distance = Math.sqrt(dx * dx + dy * dy)
@@ -194,17 +184,20 @@ export function GlowyWavesBackground() {
         }
       }
 
-      ctx.lineWidth = 2.5
-      ctx.strokeStyle = wave.color
-      ctx.globalAlpha = wave.opacity
-      ctx.shadowBlur = 35
-      ctx.shadowColor = wave.color
+      ctx.lineWidth = 12
+      ctx.strokeStyle = wave.haloColor
       ctx.stroke()
 
-      ctx.restore()
+      ctx.lineWidth = 2.5
+      ctx.strokeStyle = wave.coreColor
+      ctx.stroke()
     }
 
     const animate = () => {
+      if (!visibleRef.current) {
+        animationId = window.requestAnimationFrame(animate)
+        return
+      }
       time += 1
 
       mouseRef.current.x +=
@@ -219,13 +212,18 @@ export function GlowyWavesBackground() {
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      ctx.globalAlpha = 1
-      ctx.shadowBlur = 0
-
       themeColors.wavePalette.forEach(drawWave)
 
       animationId = window.requestAnimationFrame(animate)
     }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        visibleRef.current = entry.isIntersecting
+      },
+      { threshold: 0.01 },
+    )
+    if (canvas.parentElement) io.observe(canvas.parentElement)
 
     animationId = window.requestAnimationFrame(animate)
 
@@ -235,6 +233,7 @@ export function GlowyWavesBackground() {
       window.removeEventListener('mouseleave', handleMouseLeave)
       cancelAnimationFrame(animationId)
       observer.disconnect()
+      io.disconnect()
     }
   }, [])
 

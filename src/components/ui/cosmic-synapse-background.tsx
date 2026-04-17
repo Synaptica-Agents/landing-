@@ -2,153 +2,33 @@
 
 import { useEffect, useRef } from 'react'
 
-type Projection = { x: number; y: number; scale: number }
+const NUM_NEURONS = 400
+const SPHERE_RADIUS = 250
+const NEIGHBOR_RADIUS = 55
+const PERSPECTIVE = 400
+const TRAIL_COLOR = 'rgba(10, 14, 35, 0.22)'
 
-class Neuron {
-  x: number
-  y: number
-  z: number
+type Neuron = {
   baseX: number
   baseY: number
   baseZ: number
+  x: number
+  y: number
   radius: number
   activation: number
-  neighbors: Neuron[]
-
-  constructor(x: number, y: number, z: number) {
-    this.x = x
-    this.y = y
-    this.z = z
-    this.baseX = x
-    this.baseY = y
-    this.baseZ = z
-    this.radius = Math.random() * 2 + 1
-    this.activation = 0
-    this.neighbors = []
-  }
-
-  project(
-    canvas: HTMLCanvasElement,
-    mouse: { x: number; y: number },
-    perspective: number,
-  ): Projection {
-    const rotX = (mouse.y - canvas.height / 2) * 0.0001
-    const rotY = (mouse.x - canvas.width / 2) * 0.0001
-
-    const cosY = Math.cos(rotY)
-    const sinY = Math.sin(rotY)
-    const cosX = Math.cos(rotX)
-    const sinX = Math.sin(rotX)
-
-    const x1 = this.x * cosY - this.z * sinY
-    const z1 = this.z * cosY + this.x * sinY
-    const y1 = this.y * cosX - z1 * sinX
-    const z2 = z1 * cosX + this.y * sinX
-
-    const scale = perspective / (perspective + z2)
-    return {
-      x: x1 * scale + canvas.width / 2,
-      y: y1 * scale + canvas.height / 2,
-      scale,
-    }
-  }
-
-  draw(
-    ctx: CanvasRenderingContext2D,
-    canvas: HTMLCanvasElement,
-    mouse: { x: number; y: number },
-    perspective: number,
-  ) {
-    const { x, y, scale } = this.project(canvas, mouse, perspective)
-    ctx.beginPath()
-    ctx.arc(x, y, this.radius * scale, 0, Math.PI * 2)
-    ctx.fillStyle = `rgba(191, 219, 254, ${0.2 + this.activation * 0.8})`
-    ctx.fill()
-  }
-
-  update(
-    ctx: CanvasRenderingContext2D,
-    canvas: HTMLCanvasElement,
-    mouse: { x: number; y: number; radius: number },
-    perspective: number,
-  ) {
-    const { x: projectedX, y: projectedY } = this.project(canvas, mouse, perspective)
-    const dx = mouse.x - projectedX
-    const dy = mouse.y - projectedY
-    const dist = Math.hypot(dx, dy) || 0.0001
-    const force = Math.max(0, (mouse.radius - dist) / mouse.radius)
-
-    this.x += (dx / dist) * force * 0.5
-    this.y += (dy / dist) * force * 0.5
-
-    this.x += (this.baseX - this.x) * 0.01
-    this.y += (this.baseY - this.y) * 0.01
-
-    if (this.activation > 0) this.activation -= 0.01
-    this.draw(ctx, canvas, mouse, perspective)
-  }
-
-  fire(pulses: Pulse[]) {
-    if (this.activation > 0.5) return
-    this.activation = 1
-    for (const neighbor of this.neighbors) {
-      pulses.push(new Pulse(this, neighbor))
-    }
-  }
+  neighbors: number[]
 }
 
-class Pulse {
-  start: Neuron
-  end: Neuron
+type Pulse = {
+  startIdx: number
+  endIdx: number
   progress: number
   speed: number
-
-  constructor(start: Neuron, end: Neuron) {
-    this.start = start
-    this.end = end
-    this.progress = 0
-    this.speed = 0.05
-  }
-
-  update(): boolean {
-    this.progress += this.speed
-    if (this.progress >= 1) {
-      this.end.activation = Math.min(1, this.end.activation + 0.5)
-      return true
-    }
-    return false
-  }
-
-  draw(
-    ctx: CanvasRenderingContext2D,
-    canvas: HTMLCanvasElement,
-    mouse: { x: number; y: number },
-    perspective: number,
-  ) {
-    const startPos = this.start.project(canvas, mouse, perspective)
-    const endPos = this.end.project(canvas, mouse, perspective)
-
-    const x = startPos.x + (endPos.x - startPos.x) * this.progress
-    const y = startPos.y + (endPos.y - startPos.y) * this.progress
-    const scale = startPos.scale + (endPos.scale - startPos.scale) * this.progress
-
-    ctx.beginPath()
-    ctx.arc(x, y, 2.5 * scale, 0, Math.PI * 2)
-    ctx.fillStyle = `rgba(255, 255, 255, ${1 - this.progress})`
-    ctx.shadowColor = 'white'
-    ctx.shadowBlur = 10
-    ctx.fill()
-    ctx.shadowBlur = 0
-  }
 }
-
-// Hardcoded navy for the motion-trail fill. Using a direct hex keeps the
-// canvas visibly navy — resolving --background/--card at runtime returns a
-// LAB color that converges to near-black in the alpha-accumulated trail.
-const TRAIL_COLOR = 'rgba(20, 28, 66, 0.18)'
 
 export function CosmicSynapseBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const visibleRef = useRef(true)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -159,32 +39,44 @@ export function CosmicSynapseBackground() {
     let animationFrameId = 0
     let neurons: Neuron[] = []
     let pulses: Pulse[] = []
-    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, radius: 150 }
-    const perspective = 400
+    let projX = new Float32Array(NUM_NEURONS)
+    let projY = new Float32Array(NUM_NEURONS)
+    let projScale = new Float32Array(NUM_NEURONS)
+    const mouse = { x: 0, y: 0, radius: 150 }
+    const targetMouse = { x: 0, y: 0 }
 
-
-    const init = () => {
+    const buildNeurons = () => {
       neurons = []
-      const numNeurons = 1000
-      const radius = 250
-      for (let i = 0; i < numNeurons; i++) {
-        const phi = Math.acos(-1 + (2 * i) / numNeurons)
-        const theta = Math.sqrt(numNeurons * Math.PI) * phi
-        const x = radius * Math.cos(theta) * Math.sin(phi)
-        const y = radius * Math.sin(phi) * Math.sin(theta)
-        const z = radius * Math.cos(phi)
-        neurons.push(new Neuron(x, y, z))
+      for (let i = 0; i < NUM_NEURONS; i++) {
+        const phi = Math.acos(-1 + (2 * i) / NUM_NEURONS)
+        const theta = Math.sqrt(NUM_NEURONS * Math.PI) * phi
+        const x = SPHERE_RADIUS * Math.cos(theta) * Math.sin(phi)
+        const y = SPHERE_RADIUS * Math.sin(phi) * Math.sin(theta)
+        const z = SPHERE_RADIUS * Math.cos(phi)
+        neurons.push({
+          baseX: x,
+          baseY: y,
+          baseZ: z,
+          x,
+          y,
+          radius: Math.random() * 2 + 1,
+          activation: 0,
+          neighbors: [],
+        })
       }
 
-      for (const neuron of neurons) {
-        for (const other of neurons) {
-          if (neuron === other) continue
-          const dist = Math.hypot(
-            neuron.x - other.x,
-            neuron.y - other.y,
-            neuron.z - other.z,
-          )
-          if (dist < 40) neuron.neighbors.push(other)
+      const neighborRadiusSq = NEIGHBOR_RADIUS * NEIGHBOR_RADIUS
+      for (let i = 0; i < NUM_NEURONS; i++) {
+        const a = neurons[i]
+        for (let j = i + 1; j < NUM_NEURONS; j++) {
+          const b = neurons[j]
+          const dx = a.baseX - b.baseX
+          const dy = a.baseY - b.baseY
+          const dz = a.baseZ - b.baseZ
+          if (dx * dx + dy * dy + dz * dz < neighborRadiusSq) {
+            a.neighbors.push(j)
+            b.neighbors.push(i)
+          }
         }
       }
     }
@@ -192,48 +84,165 @@ export function CosmicSynapseBackground() {
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
-      init()
+      mouse.x = canvas.width / 2
+      mouse.y = canvas.height / 2
+      targetMouse.x = mouse.x
+      targetMouse.y = mouse.y
+    }
+
+    const firePulse = (idx: number) => {
+      const n = neurons[idx]
+      if (n.activation > 0.5) return
+      n.activation = 1
+      for (const neighborIdx of n.neighbors) {
+        pulses.push({ startIdx: idx, endIdx: neighborIdx, progress: 0, speed: 0.05 })
+      }
     }
 
     const animate = () => {
+      if (!visibleRef.current) {
+        animationFrameId = window.requestAnimationFrame(animate)
+        return
+      }
+
+      mouse.x += (targetMouse.x - mouse.x) * 0.08
+      mouse.y += (targetMouse.y - mouse.y) * 0.08
+
+      const halfW = canvas.width / 2
+      const halfH = canvas.height / 2
+      const rotX = (mouse.y - halfH) * 0.0001
+      const rotY = (mouse.x - halfW) * 0.0001
+      const cosY = Math.cos(rotY)
+      const sinY = Math.sin(rotY)
+      const cosX = Math.cos(rotX)
+      const sinX = Math.sin(rotX)
+
       ctx.fillStyle = TRAIL_COLOR
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      if (Math.random() > 0.99 && neurons.length > 0) {
-        neurons[Math.floor(Math.random() * neurons.length)].fire(pulses)
+      if (Math.random() > 0.985 && neurons.length > 0) {
+        firePulse(Math.floor(Math.random() * neurons.length))
       }
 
-      for (const n of neurons) n.update(ctx, canvas, mouse, perspective)
+      for (let i = 0; i < neurons.length; i++) {
+        const n = neurons[i]
 
-      pulses = pulses.filter((p) => !p.update())
-      for (const p of pulses) p.draw(ctx, canvas, mouse, perspective)
+        const x1 = n.x * cosY - n.baseZ * sinY
+        const z1 = n.baseZ * cosY + n.x * sinY
+        const y1 = n.y * cosX - z1 * sinX
+        const z2 = z1 * cosX + n.y * sinX
+
+        const scale = PERSPECTIVE / (PERSPECTIVE + z2)
+        const px = x1 * scale + halfW
+        const py = y1 * scale + halfH
+
+        projX[i] = px
+        projY[i] = py
+        projScale[i] = scale
+
+        const dx = mouse.x - px
+        const dy = mouse.y - py
+        const dist = Math.hypot(dx, dy) || 0.0001
+        const force = Math.max(0, (mouse.radius - dist) / mouse.radius)
+        if (force > 0) {
+          n.x += (dx / dist) * force * 0.5
+          n.y += (dy / dist) * force * 0.5
+        }
+        n.x += (n.baseX - n.x) * 0.01
+        n.y += (n.baseY - n.y) * 0.01
+
+        if (n.activation > 0) n.activation -= 0.01
+
+        ctx.beginPath()
+        ctx.arc(px, py, n.radius * scale, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(191, 219, 254, ${0.2 + n.activation * 0.8})`
+        ctx.fill()
+      }
+
+      const remaining: Pulse[] = []
+      for (const p of pulses) {
+        p.progress += p.speed
+        if (p.progress >= 1) {
+          const endN = neurons[p.endIdx]
+          endN.activation = Math.min(1, endN.activation + 0.5)
+          continue
+        }
+        remaining.push(p)
+
+        const sx = projX[p.startIdx]
+        const sy = projY[p.startIdx]
+        const ex = projX[p.endIdx]
+        const ey = projY[p.endIdx]
+        const ss = projScale[p.startIdx]
+        const es = projScale[p.endIdx]
+
+        const px = sx + (ex - sx) * p.progress
+        const py = sy + (ey - sy) * p.progress
+        const pscale = ss + (es - ss) * p.progress
+        const alpha = 1 - p.progress
+
+        ctx.beginPath()
+        ctx.arc(px, py, 7 * pscale, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(180, 200, 255, ${alpha * 0.18})`
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(px, py, 2.5 * pscale, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
+        ctx.fill()
+      }
+      pulses = remaining
 
       animationFrameId = window.requestAnimationFrame(animate)
     }
 
     const handleMouseMove = (event: MouseEvent) => {
-      mouse.x = event.clientX
-      mouse.y = event.clientY
+      targetMouse.x = event.clientX
+      targetMouse.y = event.clientY
     }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        visibleRef.current = entry.isIntersecting
+      },
+      { threshold: 0.01 },
+    )
+    if (canvas.parentElement) io.observe(canvas.parentElement)
 
     window.addEventListener('resize', resizeCanvas)
     window.addEventListener('mousemove', handleMouseMove)
 
     resizeCanvas()
+    buildNeurons()
+    projX = new Float32Array(NUM_NEURONS)
+    projY = new Float32Array(NUM_NEURONS)
+    projScale = new Float32Array(NUM_NEURONS)
     animate()
 
     return () => {
       window.cancelAnimationFrame(animationFrameId)
       window.removeEventListener('resize', resizeCanvas)
       window.removeEventListener('mousemove', handleMouseMove)
+      io.disconnect()
     }
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="pointer-events-none absolute inset-0 h-full w-full"
-      aria-hidden="true"
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        style={{ opacity: 0.85 }}
+        aria-hidden="true"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at 50% 50%, rgba(147, 51, 234, 0.08) 0%, transparent 60%)',
+        }}
+      />
+    </>
   )
 }
