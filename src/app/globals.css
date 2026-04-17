@@ -53,17 +53,17 @@
 }
 
 :root {
-  --background: oklch(0.18 0.09 260);
+  --background: oklch(0.20 0.09 260);
   --foreground: oklch(0.95 0 0);
-  --card: oklch(0.22 0.09 260);
+  --card: oklch(0.24 0.09 260);
   --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.22 0.09 260);
+  --popover: oklch(0.24 0.09 260);
   --popover-foreground: oklch(0.95 0 0);
   --primary: oklch(0.55 0.28 290);
   --primary-foreground: oklch(0.95 0 0);
   --secondary: oklch(0.76 0.14 220);
   --secondary-foreground: oklch(0.95 0 0);
-  --muted: oklch(0.26 0.09 260);
+  --muted: oklch(0.28 0.09 260);
   --muted-foreground: oklch(0.62 0.06 260);
   --accent: oklch(0.18 0.05 265);
   --accent-foreground: oklch(0.95 0 0);

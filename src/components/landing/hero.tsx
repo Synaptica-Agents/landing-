@@ -1,10 +1,10 @@
 import { EmailForm } from "./email-form"
-import { GlowyWavesBackground } from "@/components/ui/glowy-waves-background"
+import { CosmicSynapseBackground } from "@/components/ui/cosmic-synapse-background"
 
 export function Hero() {
   return (
     <section id="hero" data-theme="dark" className="relative isolate min-h-screen flex items-center justify-center px-6 pt-20 snap-start overflow-hidden">
-      <GlowyWavesBackground />
+      <CosmicSynapseBackground />
       <div className="relative z-10 w-full max-w-3xl lg:max-w-5xl flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200 leading-tight">
           Deal Flow Intelligence <span className="lg:block">for Venture Capital Funds</span>
