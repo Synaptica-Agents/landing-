@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: 'How is this different from using AI chat tools we already have?',
-    a: 'Synaptica runs continuously in the background and remembers everything across months, including deal context, founder history, and your scoring logic. It integrates directly into your existing tools, so the work happens where your data already lives. And while it\u2019s built on top of the strongest foundation models available, including those from providers like Anthropic, the system itself is trained and tuned specifically for VC workflows, which means the output is sharper and more relevant than anything a general-purpose chat tool can deliver.',
+    a: '1. Synaptica runs continuously in the background and remembers everything across months, including deal context, founder history, and your scoring logic.\n\n2. It integrates directly into your existing tools, so the work happens where your data already lives.\n\n3. It\u2019s built on top of the strongest foundation models available; the system itself is trained and tuned specifically for VC workflows, which means the output is sharper and more relevant than anything a general-purpose chat tool can deliver.',
   },
   {
     q: 'How is our deal-flow data protected?',
