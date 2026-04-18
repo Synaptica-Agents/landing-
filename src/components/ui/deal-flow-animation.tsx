@@ -347,11 +347,11 @@ function DocumentPile() {
 }
 
 // ─── Analysis boxes ────────────────────────────────────────────────────────
-const BOX_Y = 400
-const BOX_W = 240
-const BOX_H = 280
-const BOX_GAP = 24
-const BOX_1_X = 1040
+const BOX_W = 280
+const BOX_H = 440
+const BOX_Y = (STAGE_H - BOX_H) / 2
+const BOX_GAP = 28
+const BOX_1_X = 980
 const BOX_2_X = BOX_1_X + BOX_W + BOX_GAP
 const BOX_3_X = BOX_2_X + BOX_W + BOX_GAP
 
@@ -398,11 +398,11 @@ function AnalysisBox({
         width: BOX_W,
         height: BOX_H,
         background: '#fff',
-        borderRadius: 12,
+        borderRadius: 14,
         border: '1px solid #e5e7eb',
         boxShadow:
-          '0 4px 12px rgba(15,23,42,0.04), 0 1px 3px rgba(15,23,42,0.06)',
-        padding: 24,
+          '0 8px 24px rgba(15,23,42,0.06), 0 2px 6px rgba(15,23,42,0.04)',
+        padding: 28,
         boxSizing: 'border-box',
         fontFamily: 'Inter, system-ui, sans-serif',
         willChange: 'transform, opacity',
@@ -418,107 +418,211 @@ function FounderResearchBox() {
   const time = useTime()
   const contentStart = BOX_1_START + 0.25
   const avatarT = clamp((time - contentStart) / 0.4, 0, 1)
-  const chartT = clamp((time - contentStart - 0.2) / 0.7, 0, 1)
+  const bioT = clamp((time - contentStart - 0.15) / 0.5, 0, 1)
+  const chartT = clamp((time - contentStart - 0.35) / 0.8, 0, 1)
 
   const chartPoints: Array<[number, number]> = [
-    [10, 50], [35, 42], [60, 38], [85, 28], [110, 22], [135, 18], [160, 10],
+    [10, 58], [35, 50], [55, 54], [80, 42],
+    [105, 34], [130, 28], [155, 18], [180, 10],
   ]
   const visiblePts = Math.max(1, Math.floor(chartPoints.length * chartT))
   const shown = chartPoints.slice(0, visiblePts)
   const chartPath = shown
     .map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0]} ${p[1]}`)
     .join(' ')
+  const areaPath =
+    shown.length > 1
+      ? chartPath +
+        ` L ${shown[shown.length - 1][0]} 70 L ${shown[0][0]} 70 Z`
+      : ''
+
+  const tags = ['ex-Stripe', '2× founder', 'YC S23']
 
   return (
     <AnalysisBox x={BOX_1_X} y={BOX_Y} start={BOX_1_START}>
       <div
         style={{
-          fontSize: 18,
+          fontSize: 22,
           fontWeight: 600,
           color: '#0f172a',
           letterSpacing: '-0.02em',
-          lineHeight: 1.2,
+          lineHeight: 1.15,
         }}
       >
         Founder
         <br />
         Research
       </div>
+
       <div
         style={{
-          marginTop: 24,
+          marginTop: 26,
           display: 'flex',
           alignItems: 'center',
-          gap: 10,
+          gap: 12,
           opacity: avatarT,
         }}
       >
         <div
           style={{
-            width: 28,
-            height: 28,
-            borderRadius: 14,
-            background: '#f1f5f9',
+            width: 44,
+            height: 44,
+            borderRadius: 22,
+            background: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%)',
             border: '1px solid #e5e7eb',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            flexShrink: 0,
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="5" r="2.2" stroke="#94a3b8" strokeWidth="1.2" />
+          <svg width="22" height="22" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="5" r="2.2" stroke="#6366f1" strokeWidth="1.3" />
             <path
               d="M3 12c.8-2 2.3-3 4-3s3.2 1 4 3"
-              stroke="#94a3b8"
-              strokeWidth="1.2"
+              stroke="#6366f1"
+              strokeWidth="1.3"
               fill="none"
             />
           </svg>
         </div>
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
           <div
             style={{
-              height: 4,
-              background: '#e5e7eb',
-              borderRadius: 2,
-              marginBottom: 6,
-              width: `${avatarT * 90}%`,
+              fontSize: 13,
+              fontWeight: 600,
+              color: '#0f172a',
+              letterSpacing: '-0.01em',
             }}
-          />
+          >
+            Sarah Chen
+          </div>
           <div
             style={{
-              height: 4,
-              background: '#e5e7eb',
-              borderRadius: 2,
-              width: `${avatarT * 60}%`,
+              fontSize: 11,
+              fontWeight: 500,
+              color: '#64748b',
+              marginTop: 2,
             }}
-          />
+          >
+            CEO · Acme Labs
+          </div>
         </div>
       </div>
-      <div style={{ marginTop: 32, position: 'relative', height: 60 }}>
-        <svg
-          width="180"
-          height="60"
-          viewBox="0 0 180 60"
-          style={{ overflow: 'visible' }}
+
+      <div style={{ marginTop: 16, opacity: bioT }}>
+        <div
+          style={{
+            height: 5,
+            background: '#eef2f7',
+            borderRadius: 2,
+            marginBottom: 5,
+            width: `${bioT * 95}%`,
+          }}
+        />
+        <div
+          style={{
+            height: 5,
+            background: '#eef2f7',
+            borderRadius: 2,
+            marginBottom: 5,
+            width: `${bioT * 80}%`,
+          }}
+        />
+        <div
+          style={{
+            height: 5,
+            background: '#eef2f7',
+            borderRadius: 2,
+            width: `${bioT * 65}%`,
+          }}
+        />
+      </div>
+
+      <div
+        style={{
+          marginTop: 16,
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 6,
+        }}
+      >
+        {tags.map((tag, i) => {
+          const tagStart = contentStart + 0.6 + i * 0.08
+          const t = clamp((time - tagStart) / 0.3, 0, 1)
+          return (
+            <div
+              key={i}
+              style={{
+                fontSize: 10,
+                fontWeight: 600,
+                color: ACCENT,
+                background: 'rgba(30,58,138,0.08)',
+                padding: '4px 9px',
+                borderRadius: 4,
+                letterSpacing: '-0.01em',
+                opacity: t,
+                transform: `scale(${0.9 + 0.1 * t})`,
+              }}
+            >
+              {tag}
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ marginTop: 22 }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+            fontSize: 10,
+            fontWeight: 500,
+            color: '#94a3b8',
+            marginBottom: 8,
+            letterSpacing: '0.02em',
+          }}
         >
-          <path
-            d={chartPath}
-            stroke={ACCENT}
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          {shown.length > 0 && (
-            <circle
-              cx={shown[shown.length - 1][0]}
-              cy={shown[shown.length - 1][1]}
-              r="3"
-              fill={ACCENT}
+          <span>Traction (12mo)</span>
+          <span
+            style={{
+              color: '#059669',
+              fontWeight: 600,
+              fontVariantNumeric: 'tabular-nums',
+            }}
+          >
+            +{Math.round(chartT * 284)}%
+          </span>
+        </div>
+        <div style={{ position: 'relative', height: 72 }}>
+          <svg
+            width="100%"
+            height="72"
+            viewBox="0 0 200 72"
+            preserveAspectRatio="none"
+            style={{ overflow: 'visible' }}
+          >
+            <line x1="0" y1="70" x2="200" y2="70" stroke="#f1f5f9" strokeWidth="1" />
+            {areaPath && <path d={areaPath} fill={ACCENT} opacity="0.08" />}
+            <path
+              d={chartPath}
+              stroke={ACCENT}
+              strokeWidth="2"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
-          )}
-        </svg>
+            {shown.length > 0 && (
+              <circle
+                cx={shown[shown.length - 1][0]}
+                cy={shown[shown.length - 1][1]}
+                r="3.5"
+                fill={ACCENT}
+              />
+            )}
+          </svg>
+        </div>
       </div>
     </AnalysisBox>
   )
@@ -532,9 +636,6 @@ function DealScoringBox() {
   const s1 = useCountUp(87, contentStart + 0.15, 0.5)
   const s2 = useCountUp(72, contentStart + 0.25, 0.5)
   const s3 = useCountUp(64, contentStart + 0.35, 0.5)
-  const r1 = useCountUp(87, contentStart + 0.15, 0.5)
-  const r2 = useCountUp(64, contentStart + 0.25, 0.5)
-  const r3 = useCountUp(79, contentStart + 0.35, 0.5)
 
   const barT = (delay: number, target: number) => {
     const t = clamp((time - contentStart - delay) / 0.6, 0, 1)
@@ -542,20 +643,20 @@ function DealScoringBox() {
   }
 
   const rows = [
-    { label: s1, t: barT(0.15, 87), right: r1 },
-    { label: s2, t: barT(0.25, 72), right: r2 },
-    { label: s3, t: barT(0.35, 64), right: r3 },
+    { name: 'Team', label: s1, t: barT(0.15, 87) },
+    { name: 'Market', label: s2, t: barT(0.25, 72) },
+    { name: 'Product', label: s3, t: barT(0.35, 64) },
   ]
 
   return (
     <AnalysisBox x={BOX_2_X} y={BOX_Y} start={BOX_2_START}>
       <div
         style={{
-          fontSize: 18,
+          fontSize: 22,
           fontWeight: 600,
           color: '#0f172a',
           letterSpacing: '-0.02em',
-          lineHeight: 1.2,
+          lineHeight: 1.15,
         }}
       >
         Deal
@@ -564,15 +665,15 @@ function DealScoringBox() {
       </div>
       <div
         style={{
-          marginTop: 20,
+          marginTop: 28,
           display: 'flex',
           alignItems: 'baseline',
-          gap: 10,
+          gap: 12,
         }}
       >
         <div
           style={{
-            fontSize: 36,
+            fontSize: 52,
             fontWeight: 700,
             color: ACCENT,
             letterSpacing: '-0.03em',
@@ -584,7 +685,7 @@ function DealScoringBox() {
         </div>
         <div
           style={{
-            fontSize: 13,
+            fontSize: 15,
             fontWeight: 600,
             color: ACCENT,
             letterSpacing: '-0.01em',
@@ -596,34 +697,51 @@ function DealScoringBox() {
       </div>
       <div
         style={{
-          marginTop: 28,
+          marginTop: 6,
+          fontSize: 11,
+          fontWeight: 500,
+          color: '#94a3b8',
+          opacity: clamp((time - contentStart - 0.5) / 0.3, 0, 1),
+        }}
+      >
+        Overall confidence score
+      </div>
+      <div
+        style={{
+          marginTop: 32,
           display: 'flex',
           flexDirection: 'column',
-          gap: 10,
+          gap: 14,
         }}
       >
         {rows.map((row, i) => (
-          <div
-            key={i}
-            style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-          >
+          <div key={i}>
             <div
               style={{
+                display: 'flex',
+                justifyContent: 'space-between',
                 fontSize: 11,
-                fontWeight: 600,
-                color: '#475569',
-                width: 20,
-                textAlign: 'right',
-                fontVariantNumeric: 'tabular-nums',
+                fontWeight: 500,
+                color: '#64748b',
+                marginBottom: 5,
+                letterSpacing: '-0.01em',
               }}
             >
-              {row.label}
+              <span>{row.name}</span>
+              <span
+                style={{
+                  color: '#0f172a',
+                  fontWeight: 600,
+                  fontVariantNumeric: 'tabular-nums',
+                }}
+              >
+                {row.label}
+              </span>
             </div>
             <div
               style={{
-                flex: 1,
                 height: 6,
-                background: '#e5e7eb',
+                background: '#eef2f7',
                 borderRadius: 3,
                 overflow: 'hidden',
               }}
@@ -637,18 +755,6 @@ function DealScoringBox() {
                 }}
               />
             </div>
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                color: '#475569',
-                width: 20,
-                textAlign: 'left',
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
-              {row.right}
-            </div>
           </div>
         ))}
       </div>
@@ -661,64 +767,86 @@ function PipelineBox() {
   const contentStart = BOX_3_START + 0.25
 
   const rows = [
-    { startup: 'Acme Labs', stage: 'Process' },
-    { startup: 'Lumen AI', stage: 'Diligence' },
-    { startup: 'Nortix', stage: 'Screen' },
-    { startup: 'Parabola', stage: 'Process' },
+    { startup: 'Acme Labs', stage: 'Process', tier: 'B+' },
+    { startup: 'Lumen AI', stage: 'Diligence', tier: 'A' },
+    { startup: 'Nortix', stage: 'Screen', tier: 'B' },
+    { startup: 'Parabola', stage: 'Process', tier: 'B+' },
+    { startup: 'Helio', stage: 'Screen', tier: 'C' },
+    { startup: 'Vector Co.', stage: 'Diligence', tier: 'A-' },
   ]
 
   return (
     <AnalysisBox x={BOX_3_X} y={BOX_Y} start={BOX_3_START}>
       <div
         style={{
-          fontSize: 18,
+          fontSize: 22,
           fontWeight: 600,
           color: '#0f172a',
           letterSpacing: '-0.02em',
-          lineHeight: 1.2,
+          lineHeight: 1.15,
         }}
       >
         Pipeline
       </div>
       <div
         style={{
-          marginTop: 20,
-          display: 'flex',
-          justifyContent: 'space-between',
-          fontSize: 11,
-          fontWeight: 500,
+          marginTop: 26,
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 28px',
+          gap: 8,
+          fontSize: 10,
+          fontWeight: 600,
           color: '#94a3b8',
-          paddingBottom: 8,
-          borderBottom: '1px solid #f1f5f9',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+          paddingBottom: 10,
+          borderBottom: '1px solid #e5e7eb',
         }}
       >
         <div>Startup</div>
         <div>Stage</div>
+        <div style={{ textAlign: 'right' }}>Tier</div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {rows.map((row, i) => {
-          const rowStart = contentStart + i * 0.12
+          const rowStart = contentStart + i * 0.1
           const t = clamp((time - rowStart) / 0.35, 0, 1)
           const eased = Easing.easeOutCubic(t)
           return (
             <div
               key={i}
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
+                display: 'grid',
+                gridTemplateColumns: '1fr auto 28px',
+                gap: 8,
+                alignItems: 'center',
                 fontSize: 12,
                 fontWeight: 500,
                 color: '#0f172a',
-                padding: '9px 0',
+                padding: '11px 0',
                 borderBottom:
-                  i < rows.length - 1 ? '1px solid #f8fafc' : 'none',
+                  i < rows.length - 1 ? '1px solid #f1f5f9' : 'none',
                 opacity: eased,
                 transform: `translateX(${(1 - eased) * 8}px)`,
                 letterSpacing: '-0.01em',
               }}
             >
               <div>{row.startup}</div>
-              <div style={{ color: '#64748b' }}>{row.stage}</div>
+              <div style={{ color: '#64748b', fontSize: 11 }}>{row.stage}</div>
+              <div
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  color: ACCENT,
+                  textAlign: 'center',
+                  background: 'rgba(30,58,138,0.08)',
+                  padding: '3px 0',
+                  borderRadius: 4,
+                  fontVariantNumeric: 'tabular-nums',
+                }}
+              >
+                {row.tier}
+              </div>
             </div>
           )
         })}
