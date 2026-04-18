@@ -32,7 +32,6 @@ const useTimeline = () => useContext(TimelineContext)
 const ACCENT = '#1e3a8a'
 const STAGE_W = 1920
 const STAGE_H = 1080
-const STAGE_BG = '#0f172a'
 const DURATION = 7
 
 const FUNNEL_X = 820
@@ -809,7 +808,6 @@ function Scene() {
 // ─── Stage ─────────────────────────────────────────────────────────────────
 export function DealFlowAnimation() {
   const wrapperRef = useRef<HTMLDivElement | null>(null)
-  const canvasRef = useRef<HTMLDivElement | null>(null)
   const [time, setTime] = useState(0)
   const [scale, setScale] = useState(1)
   const rafRef = useRef<number | null>(null)
@@ -897,14 +895,11 @@ export function DealFlowAnimation() {
         }}
       >
         <div
-          ref={canvasRef}
           style={{
             width: STAGE_W,
             height: STAGE_H,
-            background: STAGE_BG,
             position: 'relative',
             overflow: 'hidden',
-            borderRadius: 16,
           }}
         >
           <TimelineContext.Provider value={ctxValue}>
