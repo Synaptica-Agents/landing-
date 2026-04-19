@@ -1,4 +1,4 @@
-const ACCENT = 'oklch(74% 0.14 68)'
+const ACCENT = '#60a5fa'
 const NAVY_900 = '#0a1f44'
 const NAVY_950 = '#08132b'
 const NAVY_500 = '#3f6bb2'
@@ -112,26 +112,11 @@ export function Volume() {
     >
       <div className="relative z-10 w-full max-w-[1280px] mx-auto">
         {/* ── Section head ───────────────────────────────────────────── */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-10 mb-10 md:mb-12">
-          <div>
-            <span className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-slate-500 inline-flex items-center gap-2">
-              <span className="text-slate-900 font-medium">03</span>
-              <span>· The product</span>
-            </span>
-            <h2
-              className="mt-3 font-sans font-medium tracking-[-0.035em] leading-[1.05] text-slate-900"
-              style={{ fontSize: 'clamp(28px, 3.4vw, 46px)' }}
-            >
-              A second desk for your{' '}
-              <em
-                className="font-heading italic font-normal"
-                style={{ color: ACCENT }}
-              >
-                investment team.
-              </em>
-            </h2>
-          </div>
-          <p className="text-slate-700 max-w-[52ch] text-base leading-[1.55]">
+        <div className="text-center mb-10 md:mb-12 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight pb-2 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-700">
+            A second desk for your investment team.
+          </h2>
+          <p className="mt-6 text-lg md:text-2xl text-slate-800 max-w-3xl mx-auto font-sans leading-relaxed">
             Ranked queue. One-click CRM push. Every verdict explainable, every
             source traceable. Synaptica doesn&rsquo;t make investment decisions
             — it makes sure every decision is backed by the work of a full
