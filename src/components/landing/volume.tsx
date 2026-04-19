@@ -113,14 +113,11 @@ export function Volume() {
       <div className="relative z-10 w-full max-w-[1280px] mx-auto">
         {/* ── Section head ───────────────────────────────────────────── */}
         <div className="text-center mb-10 md:mb-12 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight pb-2 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-700">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight pb-2 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">
             A second desk for your investment team.
           </h2>
           <p className="mt-6 text-lg md:text-2xl text-slate-800 max-w-3xl mx-auto font-sans leading-relaxed">
-            Ranked queue. One-click CRM push. Every verdict explainable, every
-            source traceable. Synaptica doesn&rsquo;t make investment decisions
-            — it makes sure every decision is backed by the work of a full
-            associate, on every deal.
+            Ranked queue. One-click CRM push. Every verdict explainable, every source traceable.
           </p>
         </div>
 
