@@ -27,7 +27,7 @@ export function Hero() {
           className="mt-6 max-w-xl mx-auto text-lg md:text-2xl leading-relaxed font-sans text-white"
           style={{ textShadow: '0 1px 10px rgba(0,0,0,0.5)' }}
         >
-          AI agents that triage inbound pitches, monitor your portfolio, and generate market intelligence.
+          A swarm of specialized agents that triage every inbound pitch, conduct deep founder and market research, and monitor your portfolio.
         </p>
         <p className="mt-4 text-base md:text-xl font-sans text-neutral-400 font-medium">
           Integrates with your existing stack.
