@@ -6,7 +6,6 @@ const NUM_NEURONS = 400
 const SPHERE_RADIUS = 250
 const NEIGHBOR_RADIUS = 55
 const PERSPECTIVE = 400
-const TRAIL_COLOR = 'rgba(14, 22, 54, 0.22)'
 
 type Neuron = {
   baseX: number
@@ -117,8 +116,7 @@ export function CosmicSynapseBackground() {
       const cosX = Math.cos(rotX)
       const sinX = Math.sin(rotX)
 
-      ctx.fillStyle = TRAIL_COLOR
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       if (Math.random() > 0.985 && neurons.length > 0) {
         firePulse(Math.floor(Math.random() * neurons.length))

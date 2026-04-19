@@ -205,12 +205,7 @@ export function GlowyWavesBackground() {
       mouseRef.current.y +=
         (targetMouseRef.current.y - mouseRef.current.y) * smoothing
 
-      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
-      gradient.addColorStop(0, themeColors.backgroundTop)
-      gradient.addColorStop(1, themeColors.backgroundBottom)
-
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       themeColors.wavePalette.forEach(drawWave)
 
