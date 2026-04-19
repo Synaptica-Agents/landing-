@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer data-theme="dark" className="border-t border-white/10 py-8 px-6 bg-background">
+    <footer data-theme="dark" className="grad-footer border-t border-white/10 py-8 px-6">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <span className="text-white/40 text-xs font-sans">
           &copy; 2026 Synaptica. All rights reserved.

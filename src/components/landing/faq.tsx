@@ -32,7 +32,7 @@ export function FAQ() {
     <section
       id="faq"
       data-theme="dark"
-      className="min-h-screen flex items-center justify-center px-6 py-20 snap-start bg-background"
+      className="grad-faq min-h-screen flex items-center justify-center px-6 py-20 snap-start"
     >
       <div className="max-w-3xl mx-auto w-full">
         <h2 className="text-3xl md:text-5xl font-semibold leading-tight pb-2 text-center mb-12 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">

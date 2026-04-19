@@ -2,7 +2,7 @@ import { LightSectionWaves } from '@/components/ui/light-section-waves'
 
 export function Statement() {
   return (
-    <section data-theme="dark" className="relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 snap-start bg-background">
+    <section data-theme="dark" className="grad-statement relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 snap-start">
       <LightSectionWaves />
       <div className="relative z-10 max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">

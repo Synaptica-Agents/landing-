@@ -4,7 +4,7 @@ export function Volume() {
   return (
     <section
       data-theme="dark"
-      className="relative isolate overflow-hidden min-h-screen flex flex-col items-center justify-center px-6 snap-start bg-background"
+      className="grad-volume relative isolate overflow-hidden min-h-screen flex flex-col items-center justify-center px-6 snap-start"
     >
       <div className="relative z-10 w-full max-w-6xl mx-auto text-center pt-20">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight pb-2 lg:whitespace-nowrap bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">

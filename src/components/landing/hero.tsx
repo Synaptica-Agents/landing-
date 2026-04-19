@@ -3,7 +3,7 @@ import { CosmicSynapseBackground } from "@/components/ui/cosmic-synapse-backgrou
 
 export function Hero() {
   return (
-    <section id="hero" data-theme="dark" className="relative isolate min-h-screen flex items-center justify-center px-6 pt-20 snap-start overflow-hidden">
+    <section id="hero" data-theme="dark" className="grad-hero relative isolate min-h-screen flex items-center justify-center px-6 pt-20 snap-start overflow-hidden">
       <CosmicSynapseBackground />
       <div
         aria-hidden

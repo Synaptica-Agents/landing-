@@ -6,7 +6,7 @@ export function CTA() {
     <section
       id="cta"
       data-theme="dark"
-      className="relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 snap-start bg-background"
+      className="grad-cta relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 snap-start"
     >
       <GlowyWavesBackground />
       <div className="relative z-10 max-w-5xl mx-auto text-center">
