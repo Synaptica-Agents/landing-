@@ -5,7 +5,7 @@ export function CTA() {
   return (
     <section
       id="cta"
-      data-theme="dark"
+      data-theme="light"
       className="grad-cta relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 snap-start"
     >
       <GlowyWavesBackground />

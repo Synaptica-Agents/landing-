@@ -184,10 +184,6 @@ export function GlowyWavesBackground() {
         }
       }
 
-      ctx.lineWidth = 12
-      ctx.strokeStyle = wave.haloColor
-      ctx.stroke()
-
       ctx.lineWidth = 2.5
       ctx.strokeStyle = wave.coreColor
       ctx.stroke()
