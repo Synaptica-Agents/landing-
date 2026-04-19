@@ -24,7 +24,7 @@ export function Hero() {
           </span>
         </h1>
         <p
-          className="mt-6 max-w-xl mx-auto text-lg md:text-2xl leading-relaxed font-sans text-white"
+          className="mt-6 max-w-4xl mx-auto text-lg md:text-2xl leading-relaxed font-sans text-white"
           style={{ textShadow: '0 1px 10px rgba(0,0,0,0.5)' }}
         >
           A swarm of specialized agents that triage every inbound pitch, conduct deep founder and market research, and monitor your portfolio.
