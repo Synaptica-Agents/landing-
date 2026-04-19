@@ -270,6 +270,200 @@ function DocCard({
   const entryEnd = entryStart + 0.7
   const suckStart = 2.6 + delay * 0.15
   const suckEnd = suckStart + 0.5
+  const ghostIn = suckEnd + 0.35
+
+  const docType = DOC_TYPES[type]
+
+  // Ghost placeholder rendered after a doc gets sucked in. Dashed white
+  // silhouette at the original position so the viewer remembers this spot
+  // held a doc.
+  const renderGhost = (gOpacity: number) => {
+    const common = {
+      position: 'absolute' as const,
+      left: x,
+      top: y,
+      transform: `translate(-50%, -50%) rotate(${rot}deg)`,
+      transformOrigin: 'center',
+      opacity: gOpacity * 0.9,
+      pointerEvents: 'none' as const,
+      boxSizing: 'border-box' as const,
+    }
+    const ghostStroke = 'rgba(255,255,255,0.85)'
+    const ghostFill = 'rgba(255,255,255,0.10)'
+    const ghostLine = 'rgba(255,255,255,0.55)'
+
+    if (docType.kind === 'envelope') {
+      return (
+        <div
+          style={{
+            ...common,
+            width: 180,
+            height: 120,
+            border: `1.5px dashed ${ghostStroke}`,
+            borderRadius: 6,
+            background: ghostFill,
+            overflow: 'hidden',
+          }}
+        >
+          <svg
+            width="180"
+            height="120"
+            style={{ position: 'absolute', inset: 0 }}
+          >
+            <path
+              d="M0 0 L90 60 L180 0"
+              fill="none"
+              stroke={ghostStroke}
+              strokeWidth="1.2"
+              strokeDasharray="4 3"
+            />
+          </svg>
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 14,
+              left: 10,
+              right: 34,
+              height: 4,
+              background: ghostLine,
+              borderRadius: 2,
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 24,
+              left: 10,
+              width: 60,
+              height: 3,
+              background: ghostLine,
+              borderRadius: 2,
+              opacity: 0.6,
+            }}
+          />
+        </div>
+      )
+    }
+
+    if (docType.kind === 'pdf') {
+      return (
+        <div
+          style={{
+            ...common,
+            width: 150,
+            height: 170,
+            border: `1.5px dashed ${ghostStroke}`,
+            borderRadius: 8,
+            background: ghostFill,
+            padding: 14,
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: 10,
+              right: 10,
+              width: 30,
+              height: 16,
+              border: `1px dashed ${ghostStroke}`,
+              borderRadius: 3,
+              opacity: 0.8,
+            }}
+          />
+          <div style={{ marginTop: 26 }}>
+            {['70%', '90%', '60%', '80%'].map((w, i) => (
+              <div
+                key={i}
+                style={{
+                  height: 3,
+                  background: ghostLine,
+                  borderRadius: 2,
+                  marginBottom: 7,
+                  width: w,
+                }}
+              />
+            ))}
+          </div>
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 12,
+              left: 14,
+              width: 60,
+              height: 3,
+              background: ghostLine,
+              borderRadius: 2,
+            }}
+          />
+        </div>
+      )
+    }
+
+    return (
+      <div
+        style={{
+          ...common,
+          width: 180,
+          height: 110,
+          border: `1.5px dashed ${ghostStroke}`,
+          borderRadius: 8,
+          background: ghostFill,
+          padding: 12,
+        }}
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          style={{ display: 'block' }}
+        >
+          <path
+            d="M2 3.5a1.5 1.5 0 011.5-1.5h7A1.5 1.5 0 0112 3.5v5A1.5 1.5 0 0110.5 10H6l-3 2.5V10H3.5A1.5 1.5 0 012 8.5v-5z"
+            stroke={ghostStroke}
+            strokeWidth="1.2"
+            fill="none"
+            strokeDasharray="3 2"
+          />
+        </svg>
+        <div style={{ marginTop: 12 }}>
+          <div
+            style={{
+              height: 4,
+              background: ghostLine,
+              borderRadius: 2,
+              marginBottom: 5,
+              width: '75%',
+            }}
+          />
+          <div
+            style={{
+              height: 3,
+              background: ghostLine,
+              borderRadius: 2,
+              marginBottom: 5,
+              width: '90%',
+              opacity: 0.7,
+            }}
+          />
+          <div
+            style={{
+              height: 3,
+              background: ghostLine,
+              borderRadius: 2,
+              width: '55%',
+              opacity: 0.7,
+            }}
+          />
+        </div>
+      </div>
+    )
+  }
+
+  // After the doc is gone, only the ghost stays at the original spot.
+  if (time >= suckEnd) {
+    const gT = clamp((time - suckEnd) / (ghostIn - suckEnd), 0, 1)
+    return renderGhost(Easing.easeOutCubic(gT))
+  }
 
   let opacity = 0
   let tx = x
@@ -295,7 +489,7 @@ function DocCard({
     opacity = 1
     ty = y + bob
     scale = 1
-  } else if (time < suckEnd) {
+  } else {
     const t = Easing.easeInCubic(
       clamp((time - suckStart) / (suckEnd - suckStart), 0, 1),
     )
@@ -304,11 +498,7 @@ function DocCard({
     ty = y + (FUNNEL_Y - y) * t
     tr = rot * (1 - t)
     scale = 1 - 0.5 * t
-  } else {
-    return null
   }
-
-  const docType = DOC_TYPES[type]
 
   return (
     <div
@@ -870,24 +1060,10 @@ function Connector() {
   const endX = BOX_3_X - 4
   const boxCenterY = BOX_Y + BOX_H / 2
 
-  const seg1 = midX - startX
-  const seg2 = Math.abs(boxCenterY - startY)
-  const seg3 = endX - midX
-  const totalLen = seg1 + seg2 + seg3
+  const totalLen =
+    midX - startX + Math.abs(boxCenterY - startY) + (endX - midX)
 
   const pathD = `M ${startX} ${startY} L ${midX} ${startY} L ${midX} ${boxCenterY} L ${endX} ${boxCenterY}`
-
-  let pulse: { cx: number; cy: number } | null = null
-  if (t > 0 && t < 1) {
-    const d = eased * totalLen
-    if (d < seg1) pulse = { cx: startX + d, cy: startY }
-    else if (d < seg1 + seg2)
-      pulse = {
-        cx: midX,
-        cy: startY + (boxCenterY - startY) * ((d - seg1) / seg2),
-      }
-    else pulse = { cx: midX + (d - seg1 - seg2), cy: boxCenterY }
-  }
 
   return (
     <svg
@@ -895,18 +1071,46 @@ function Connector() {
       height={STAGE_H}
       style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
     >
+      <defs>
+        <filter
+          id="connector-glow-desktop"
+          x="-50%"
+          y="-50%"
+          width="200%"
+          height="200%"
+        >
+          <feGaussianBlur stdDeviation="4" result="glow" />
+          <feMerge>
+            <feMergeNode in="glow" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      {/* Outer soft blue glow layer */}
       <path
         d={pathD}
-        stroke={ACCENT}
-        strokeWidth="1.5"
+        stroke="#60a5fa"
+        strokeWidth="10"
         fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray={totalLen}
         strokeDashoffset={totalLen * (1 - eased)}
-        opacity={0.75}
+        opacity={0.55}
+        filter="url(#connector-glow-desktop)"
       />
-      {pulse && <circle cx={pulse.cx} cy={pulse.cy} r={4} fill={ACCENT} opacity={0.9} />}
+      {/* Main bright white core line */}
+      <path
+        d={pathD}
+        stroke="#ffffff"
+        strokeWidth="4"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray={totalLen}
+        strokeDashoffset={totalLen * (1 - eased)}
+        opacity={1}
+      />
     </svg>
   )
 }
