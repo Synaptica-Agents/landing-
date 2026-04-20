@@ -1,4 +1,5 @@
 import { EmailForm } from './email-form'
+import { GlowyWavesBackground } from '@/components/ui/glowy-waves-background'
 
 export function CTA() {
   return (
@@ -7,6 +8,9 @@ export function CTA() {
       data-theme="dark"
       className="grad-cta relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 snap-start"
     >
+      <div className="absolute inset-x-0 bottom-0 top-1/2 overflow-hidden pointer-events-none">
+        <GlowyWavesBackground />
+      </div>
       <div className="relative z-10 max-w-5xl mx-auto text-center">
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight pb-2 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">
           Your team. Amplified.
