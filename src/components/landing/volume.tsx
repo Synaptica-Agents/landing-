@@ -110,14 +110,14 @@ export function Volume() {
       data-theme="dark"
       className="grad-volume relative isolate overflow-hidden min-h-screen flex items-center justify-center px-6 py-24 snap-start"
     >
-      <div className="relative z-10 w-full max-w-[1280px] mx-auto">
+      <div className="relative z-10 w-full max-w-[1040px] mx-auto">
         {/* ── Section head ───────────────────────────────────────────── */}
-        <div className="text-center mb-10 md:mb-12 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight pb-2 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">
+        <div className="text-center mb-10 md:mb-12 max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight pb-2 bg-clip-text text-transparent bg-gradient-to-b from-blue-300 to-blue-800">
             A second desk for your investment team.
           </h2>
-          <p className="mt-6 text-lg md:text-2xl text-slate-800 max-w-3xl mx-auto font-sans leading-relaxed">
-            Ranked queue. One-click CRM push. Every verdict explainable, every source traceable.
+          <p className="mt-6 text-lg md:text-xl text-slate-800 max-w-5xl mx-auto font-sans leading-relaxed">
+            One-click CRM push. Every verdict explainable, every source traceable.
           </p>
         </div>
 
@@ -150,7 +150,7 @@ export function Volume() {
           {/* body */}
           <div
             className="grid grid-cols-1 lg:grid-cols-[220px_1fr_320px]"
-            style={{ minHeight: 560 }}
+            style={{ minHeight: 460 }}
           >
             {/* ─ sidebar ─ */}
             <aside className="border-b lg:border-b-0 lg:border-r border-white/[0.06] p-5 text-[13px] text-white/70">

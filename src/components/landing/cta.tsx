@@ -10,7 +10,7 @@ export function CTA() {
     >
       <GlowyWavesBackground />
       <div className="relative z-10 max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight pb-2 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight pb-2 bg-clip-text text-transparent bg-gradient-to-b from-blue-300 to-blue-800">
           Your team. Amplified.
         </h2>
         <p className="mt-6 text-lg md:text-2xl text-white max-w-4xl mx-auto font-sans leading-relaxed pb-1">
