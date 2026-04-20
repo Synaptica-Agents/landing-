@@ -1,12 +1,14 @@
 import { DealFlowAnimation } from '@/components/ui/deal-flow-animation'
+import { GlowyWavesBackground } from '@/components/ui/glowy-waves-background'
 
 export function Statement() {
   return (
     <section
       data-theme="dark"
-      className="grad-statement relative isolate overflow-hidden min-h-screen flex flex-col items-center justify-center px-6 snap-start"
+      className="grad-statement relative isolate overflow-hidden min-h-screen flex flex-col items-center justify-end px-6 pt-24 snap-start"
     >
-      <div className="relative z-10 w-full max-w-6xl mx-auto text-center">
+      <GlowyWavesBackground />
+      <div className="relative z-10 w-full max-w-6xl mx-auto text-center mt-auto">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight pb-2 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">
           Vibe coding lowered the barrier to building a startup
         </h2>

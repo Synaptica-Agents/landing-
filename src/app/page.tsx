@@ -4,7 +4,6 @@ import { KeyboardSnap } from '@/components/ui/smooth-snap'
 import { Navbar } from '@/components/landing/navbar'
 import { Hero } from '@/components/landing/hero'
 import { Statement } from '@/components/landing/statement'
-import { Volume } from '@/components/landing/volume'
 import { CTA } from '@/components/landing/cta'
 import { FAQ } from '@/components/landing/faq'
 import { Footer } from '@/components/landing/footer'
@@ -20,7 +19,6 @@ export default function LandingPage() {
         <Navbar />
         <Hero />
         <Statement />
-        <Volume />
         <CTA />
         <FAQ />
         <Footer />

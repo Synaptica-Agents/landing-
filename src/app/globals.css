@@ -76,16 +76,7 @@
   );
 }
 .grad-cta {
-  background: linear-gradient(
-    to bottom,
-    #ffffff 0%,
-    #dfe8f3 12%,
-    #a8c1dc 28%,
-    #6b8fb8 45%,
-    #3b5a8a 65%,
-    #152b5c 85%,
-    #061a44 100%
-  );
+  background: linear-gradient(to bottom, #0b1d4a 0%, #173371 50%, #2f5795 100%);
 }
 .grad-faq {
   background: linear-gradient(to bottom, #061a44 0%, #081433 60%, #050d24 100%);
