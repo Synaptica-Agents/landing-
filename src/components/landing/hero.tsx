@@ -18,16 +18,16 @@ export function Hero() {
           className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
           style={{ textShadow: '0 2px 18px rgba(0,0,0,0.55)' }}
         >
-          <span className="text-white">Deal Flow Intelligence</span>{' '}
+          <span className="text-white">An AI Workforce</span>{' '}
           <span className="lg:block bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-200">
-            for Venture Capital Funds
+            for Engineering Offices
           </span>
         </h1>
         <p
           className="mt-6 max-w-4xl mx-auto text-lg md:text-2xl leading-relaxed font-sans text-white"
           style={{ textShadow: '0 1px 10px rgba(0,0,0,0.5)' }}
         >
-          A swarm of specialized agents that triage every inbound pitch, conduct deep founder and market research, and monitor your portfolio.
+          AI agents that handle the repetitive work in your engineering office.
         </p>
         <p className="mt-4 text-base md:text-xl font-sans text-neutral-400 font-medium">
           Integrates with your existing stack.
