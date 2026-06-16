@@ -16,7 +16,7 @@ export function CTA() {
           Your team. Amplified.
         </h2>
         <p className="mt-6 text-lg md:text-2xl text-white max-w-4xl mx-auto font-sans leading-relaxed pb-1">
-          We handle the research, the triage, and the monitoring, so your judgment is always backed by better data.
+          We handle the paperwork, so your judgment stays where it matters — on the engineering.
         </p>
         <div className="mt-10 flex justify-center">
           <EmailForm source="cta" variant="inline" />
